@@ -37,7 +37,7 @@ const serviceSchema = new Schema<IService>({
   type: { type: Schema.Types.ObjectId, ref: 'ServiceType' },
   people: [peopleSchema],
   events: [serviceEventSchema],
-  userId: { type: Schema.Types.ObjectId, ref: 'Song' }
+  userId: { type: Schema.Types.ObjectId, ref: 'User' }
 })
 
 const Service = model('Service', serviceSchema)

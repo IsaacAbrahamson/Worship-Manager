@@ -11,7 +11,7 @@ const personSchema = new Schema<IPerson>({
   email: { type: String, required: true },
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },
-  userId: { type: Schema.Types.ObjectId, ref: 'Song' }
+  userId: { type: Schema.Types.ObjectId, ref: 'User' }
 })
 
 const Person = model('Person', personSchema)
