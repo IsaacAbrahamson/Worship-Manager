@@ -1,4 +1,4 @@
-import mongoose, { Collection, Types } from 'mongoose'
+import { Types } from 'mongoose'
 import Person from '../models/Person'
 import Service from '../models/Service'
 import ServiceRole from '../models/ServiceRole'
@@ -6,25 +6,8 @@ import ServiceType from '../models/ServiceType'
 import ServiceEventType from '../models/ServiceEventType'
 import Song from '../models/Song'
 
-function dropCollection(collection: Collection) {
-  try {
-    return collection.drop()
-  } catch (e) {
-    console.log(e)
-  }
-}
-
 // Called everytime a new user is created to populate the database with demo information
-
 async function createData(userId: Types.ObjectId) {
-  // drop all collections
-  console.log('dropping collections...')
-  mongoose.connection.db.listCollections().toArray((err, names) => {
-    if (err) return console.log(err)
-    if (!names) return
-    names.forEach((e) => mongoose.connection.db.dropCollection(e.name))
-  })
-
   // Create people
   console.log('Creating persons...')
   const person1 = new Person({
@@ -150,7 +133,7 @@ async function createData(userId: Types.ObjectId) {
     type: type1._id,
     people: [
       {
-        person: person1._id,
+        person: person6._id,
         role: role1._id
       }, {
         person: person2._id,
@@ -189,7 +172,7 @@ async function createData(userId: Types.ObjectId) {
     type: type2._id,
     people: [
       {
-        person: person1._id,
+        person: person6._id,
         role: role2._id
       }, {
         person: person2._id,
@@ -228,7 +211,7 @@ async function createData(userId: Types.ObjectId) {
     type: type3._id,
     people: [
       {
-        person: person1._id,
+        person: person6._id,
         role: role1._id
       }, {
         person: person2._id,

@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import * as dotenv from 'dotenv'
+import { connectDB } from './utils/connectDB'
 
 // Import routing
 import serviceRoutes from './routes/services'
@@ -14,6 +15,9 @@ import optionRoutes from './routes/options'
 dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 3000
+
+// Connect to database
+connectDB()
 
 // Middleware
 app.use(express.json())
