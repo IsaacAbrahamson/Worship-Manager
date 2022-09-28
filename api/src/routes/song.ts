@@ -1,8 +1,10 @@
 import express, { Request, Response } from 'express'
+import Song from '../models/Song'
 const router = express.Router()
 
 router.get('/', async (req: Request, res: Response) => {
-  res.send('all songs')
+  const songs = await Song.find({})
+  res.send(songs)
 })
 
 router.post('/new', async (req: Request, res: Response) => {

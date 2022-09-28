@@ -1,9 +1,13 @@
 import express, { Request, Response } from 'express'
+import ServiceEventType from '../models/ServiceEventType'
+import ServiceRole from '../models/ServiceRole'
+import ServiceType from '../models/ServiceType'
 const router = express.Router()
 
 // Event Type Routes
 router.get('/events', async (req: Request, res: Response) => {
-  res.send('all event types info: ')
+  const types = await ServiceEventType.find({})
+  res.send(types)
 })
 
 router.post('/events/new', async (req: Request, res: Response) => {
@@ -22,7 +26,8 @@ router.post('/events/delete', async (req: Request, res: Response) => {
 
 // Role Type Routes
 router.get('/roles', async (req: Request, res: Response) => {
-  res.send('all role types info: ')
+  const roles = await ServiceRole.find({})
+  res.send(roles)
 })
 
 router.post('/roles/new', async (req: Request, res: Response) => {
@@ -41,7 +46,8 @@ router.post('/roles/delete', async (req: Request, res: Response) => {
 
 // Service Type Routes
 router.get('/types', async (req: Request, res: Response) => {
-  res.send('all service types info: ')
+  const types = await ServiceType.find({})
+  res.send(types)
 })
 
 router.post('/types/new', async (req: Request, res: Response) => {
