@@ -1,13 +1,18 @@
-import { connect } from "mongoose";
+import { connect, Connection } from "mongoose";
 
-async function connectDB(): Promise<void> {
+type Database = Connection | undefined
+
+export async function connectDB(): Promise<Database> {
   if (!process.env.DB_STRING) throw new Error('No database specified in environment')
 
   try {
-    await connect(process.env.DB_STRING, { dbName: 'worshipdb' })
+    const db = await connect(process.env.DB_STRING, { dbName: 'worshipdb' })
+    return db.connection
   } catch (e) {
     console.log(e)
   }
 }
 
-export default connectDB
+export async function closeDB(connection: Database): Promise<void> {
+  if (connection) connection.close()
+}
