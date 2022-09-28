@@ -1,8 +1,10 @@
 import express, { Request, Response } from 'express'
+import Person from '../models/Person'
 const router = express.Router()
 
 router.get('/', async (req: Request, res: Response) => {
-  res.send('all people')
+  const people = await Person.find({})
+  res.send(people)
 })
 
 router.post('/new', async (req: Request, res: Response) => {
