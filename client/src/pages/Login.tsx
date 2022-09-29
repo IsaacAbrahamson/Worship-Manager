@@ -5,7 +5,7 @@ export default function Login() {
   const [password, setPassword] = useState<string>('')
 
   async function login() {
-    const res = await fetch('/api/login', {
+    const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -22,7 +22,7 @@ export default function Login() {
   }
 
   async function getUser() {
-    const res = await fetch('/api/user', { credentials: 'include' })
+    const res = await fetch('/api/auth/user', { credentials: 'include' })
     const json = await res.json()
     console.log(json)
   }
