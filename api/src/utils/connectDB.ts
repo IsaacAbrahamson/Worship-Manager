@@ -6,7 +6,7 @@ export async function connectDB(): Promise<Database> {
   if (!process.env.DB_STRING) throw new Error('No database specified in environment')
 
   try {
-    const db = await connect(process.env.DB_STRING, { dbName: 'worshipdb' })
+    const db = await connect(process.env.DB_STRING)
     return db.connection
   } catch (e) {
     console.log(e)

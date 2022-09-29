@@ -7,7 +7,6 @@ import passport from 'passport'
 import bcrypt from 'bcrypt'
 import User from './models/User'
 import mongoose from 'mongoose'
-import cookieParser from 'cookie-parser'
 import { Strategy as LocalStrategy } from 'passport-local'
 
 // Import routing
@@ -34,7 +33,6 @@ app.use(session({
   cookie: { maxAge: 1000 * 60 * 60 * 24 * 10 }, // 10 days
   store: MongoStore.create({ client: mongoose.connection.getClient() })
 }))
-app.use(cookieParser())
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -59,7 +57,7 @@ passport.deserializeUser(async (id: string, cb) => {
   try {
     const user = await User.findById(id)
     if (!user) throw new Error('User does not exist')
-    cb(null, { email: user.email })
+    cb(null, { id: user.id })
   } catch (err) {
     cb(err)
   }
@@ -67,15 +65,16 @@ passport.deserializeUser(async (id: string, cb) => {
 
 
 // Authentication
-app.post('/login', passport.authenticate('local'), (req, res) => {
-  res.send('Successfully logged in!')
+app.post('/api/login', passport.authenticate('local'), (req, res) => {
+  const { email, password } = req.body
+  res.send({ status: 'success', email, password })
 })
 
-app.get('/user', (req, res) => {
+app.get('/api/user', (req, res) => {
   res.send(req.user)
 })
 
-app.post('/register', async (req, res) => {
+app.post('/api/register', async (req, res) => {
   const { email, first_name, last_name, password } = req?.body
   // Validate missing input
   if (!email || !first_name || !last_name || !password) {
