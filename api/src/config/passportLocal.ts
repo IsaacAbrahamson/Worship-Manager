@@ -5,13 +5,13 @@ import User from '../models/User'
 
 export default function configPassport(passport: PassportStatic) {
   // Configure local strategy to authenticate email and password saved in database
-  passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
+  passport.use(new LocalStrategy({ usernameField: 'email' }, async (email: string, password: string, done) => {
     try {
       // Verify email exists
       const user = await User.findOne({ email })
       if (!user) return done(null, false)
       // Verify password matches password for email
-      const verified = await bcrypt.compare(password, user.password)
+      const verified: boolean = await bcrypt.compare(password, user.password)
       if (verified) return done(null, user)
       else return done(null, false)
     } catch (err) {
