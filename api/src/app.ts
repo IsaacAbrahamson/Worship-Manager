@@ -2,9 +2,11 @@ import express, { Request, Response } from 'express'
 import * as dotenv from 'dotenv'
 import { connectDB } from './utils/connectDB'
 import session from 'express-session'
+import MongoStore from 'connect-mongo'
 import passport from 'passport'
 import bcrypt from 'bcrypt'
 import User from './models/User'
+import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 import { Strategy as LocalStrategy } from 'passport-local'
 
@@ -30,6 +32,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: { maxAge: 1000 * 60 * 60 * 24 * 10 }, // 10 days
+  store: MongoStore.create({ client: mongoose.connection.getClient() })
 }))
 app.use(cookieParser())
 app.use(passport.initialize())
