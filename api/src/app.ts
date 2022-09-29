@@ -1,20 +1,19 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
 import * as dotenv from 'dotenv'
 import { connectDB } from './utils/connectDB'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import passport from 'passport'
-import bcrypt from 'bcrypt'
-import User from './models/User'
 import mongoose from 'mongoose'
 import { Strategy as LocalStrategy } from 'passport-local'
+import configPassport from './config/passportLocal'
 
 // Import routing
 import serviceRoutes from './routes/services'
 import peopleRoutes from './routes/people'
 import songRoutes from './routes/song'
-import userRoutes from './routes/user'
 import optionRoutes from './routes/options'
+import authRoutes from './routes/auth'
 
 // Configure application
 dotenv.config()
@@ -33,87 +32,17 @@ app.use(session({
   cookie: { maxAge: 1000 * 60 * 60 * 24 * 10 }, // 10 days
   store: MongoStore.create({ client: mongoose.connection.getClient() })
 }))
-app.use(passport.initialize())
-app.use(passport.session())
 
 // Passport
-passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
-  try {
-    // Check if user with that email exists
-    const user = await User.findOne({ email })
-    if (!user) return done(null, false)
-    // Verify password
-    const verified = await bcrypt.compare(password, user.password)
-    if (verified) return done(null, user)
-    else return done(null, false)
-  } catch (err) {
-    return done(err)
-  }
-}))
-passport.serializeUser((user: any, cb) => {
-  cb(null, user.id)
-})
-passport.deserializeUser(async (id: string, cb) => {
-  try {
-    const user = await User.findById(id)
-    if (!user) throw new Error('User does not exist')
-    cb(null, { id: user.id })
-  } catch (err) {
-    cb(err)
-  }
-})
-
-
-// Authentication
-app.post('/api/login', passport.authenticate('local'), (req, res) => {
-  const { email, password } = req.body
-  res.send({ status: 'success', email, password })
-})
-
-app.get('/api/user', (req, res) => {
-  res.send(req.user)
-})
-
-app.post('/api/register', async (req, res) => {
-  const { email, first_name, last_name, password } = req?.body
-  // Validate missing input
-  if (!email || !first_name || !last_name || !password) {
-    return res.send('Missing required option')
-  }
-  // Validate invalid input
-  if (typeof email !== "string" || typeof first_name !== "string" || typeof last_name !== "string" || typeof password !== "string") {
-    return res.send('Invalid option')
-  }
-  // Validate user exists
-  try {
-    const existingUser = await User.findOne({ email })
-    if (existingUser) {
-      return res.send('User already exists')
-    }
-  } catch (err) {
-    console.log(err)
-    res.send(err)
-  }
-
-  // Create new user
-  try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    const newUser = new User({ email, first_name, last_name, password: hashedPassword })
-    await newUser.save()
-    res.send({ newUser })
-  } catch (err) {
-    console.log(err)
-    res.send({ err })
-  }
-})
-
-
+app.use(passport.initialize())
+app.use(passport.session())
+configPassport(passport)
 
 // Routing
 app.use('/api/services', serviceRoutes)
 app.use('/api/people', peopleRoutes)
 app.use('/api/songs', songRoutes)
-app.use('/api/users', userRoutes)
 app.use('/api/options', optionRoutes)
+app.use('/api/auth', authRoutes)
 
 app.listen(PORT, () => `Server listening on port: ${PORT}`)
