@@ -20,18 +20,18 @@ export default function configPassport(passport: PassportStatic) {
   }))
 
   // Save user id as cookie
-  passport.serializeUser((user: any, cb) => {
-    cb(null, user.id)
+  passport.serializeUser((user: any, done) => {
+    done(null, user.id)
   })
 
-  // Get user id from cookie
-  passport.deserializeUser(async (id: string, cb) => {
+  // Get user from cookie
+  passport.deserializeUser(async (id: string, done) => {
     try {
       const user = await User.findById(id)
       if (!user) throw new Error('User does not exist')
-      cb(null, { id: user.id })
+      done(null, user)
     } catch (err) {
-      cb(err)
+      done(err)
     }
   })
 }
