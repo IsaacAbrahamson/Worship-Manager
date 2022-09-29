@@ -1,11 +1,12 @@
 import { useState } from 'react'
+import { AuthStatus } from '../types'
 
 export default function Login() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
   async function login() {
-    const res = await fetch('/api/auth/login', {
+    const res: Response = await fetch('/api/auth/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -17,14 +18,7 @@ export default function Login() {
         password,
       })
     })
-    const json = await res.json()
-    console.log(json)
-  }
-
-  async function getUser() {
-    const res = await fetch('/api/auth/user', { credentials: 'include' })
-    const json = await res.json()
-    console.log(json)
+    const json: AuthStatus = await res.json()
   }
 
   return (
@@ -33,7 +27,6 @@ export default function Login() {
       <input type="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <button onClick={login}>Login</button>
-      <button onClick={getUser}>Get User</button>
     </div>
   )
 }
