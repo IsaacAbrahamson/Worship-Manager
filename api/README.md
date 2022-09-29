@@ -1,8 +1,19 @@
 # Worship-Manager
 
-Backend
+This folder contains all of the backend code for the application. You will need Node.js installed and have either a local MongoDB or Atlas database.
 
-## Usage
+## Getting Started
+
+Install dependencies:
+```
+npm install
+```
+
+Create a `.env` file in the `/api` root folder:
+```
+DB_STRING = mongodb+srv://<user>:<pass>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority
+SESSION_SECRET = some_random_string_1234
+```
 
 Build for production
 ```
@@ -14,12 +25,20 @@ Run local server
 npm run dev
 ```
 
-Populate database
+Populate database with test user and information
 ```
 npm run populate
 ```
 
-## Routes
+## Test User
+
+The following test user can be used in place of registering a new user:
+```
+email: testuser@example.com
+password: test123
+```
+
+## API Endpoints
 
 Services
 ```
@@ -46,14 +65,6 @@ POST /api/songs/update
 POST /api/songs/delete
 ```
 
-Users
-```
-GET  /api/users/:id
-POST /api/users/new
-POST /api/users/update
-POST /api/users/delete
-```
-
 Options
 ```
 GET  /api/options/events/
@@ -74,6 +85,7 @@ POST /api/options/types/delete
 
 Auth
 ```
-GET  /login
-POST /register
+GET  /api/auth/user
+POST /api/auth/login
+POST /api/auth/register
 ```
