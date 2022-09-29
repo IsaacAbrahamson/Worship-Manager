@@ -71,3 +71,9 @@ POST /api/options/types/new
 POST /api/options/types/update
 POST /api/options/types/delete
 ```
+
+Auth
+```
+GET  /login
+POST /register
+```
