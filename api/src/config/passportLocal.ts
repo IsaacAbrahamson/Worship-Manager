@@ -3,6 +3,14 @@ import { Strategy as LocalStrategy } from 'passport-local'
 import bcrypt from 'bcrypt'
 import User from '../models/User'
 
+// Password is not used when user is sent to client
+export interface AppUser {
+  email: string
+  first_name: string
+  last_name: string
+  password?: string
+}
+
 export default function configPassport(passport: PassportStatic) {
   // Configure local strategy to authenticate email and password saved in database
   passport.use(new LocalStrategy({ usernameField: 'email' }, async (email: string, password: string, done) => {
@@ -27,8 +35,11 @@ export default function configPassport(passport: PassportStatic) {
   // Get user from cookie
   passport.deserializeUser(async (id: string, done) => {
     try {
-      const user = await User.findById(id)
+      const user = await User.findById(id) as AppUser
       if (!user) throw new Error('User does not exist')
+
+      // Do not send password to client
+      delete user.password
       done(null, user)
     } catch (err) {
       done(err)

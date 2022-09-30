@@ -1,13 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react'
+import { UserInterface } from './types'
+import UserContext from './UserContext'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
 import Services from './pages/Services'
 import Options from './pages/Options'
 import People from './pages/People'
 import Songs from './pages/Songs'
-import { UserInterface } from './types'
-import UserContext from './UserContext'
+import Register from './pages/Register'
 
 function App() {
   const { user, updateUser } = useContext(UserContext)
@@ -34,8 +35,9 @@ function App() {
           <Routes>
             {/* Redirect to dashboard if logged in else redirect to login */}
             <Route path='/' element={<Navigate to={user ? '/dashboard' : '/login'} replace />} />
-            {/* If user is logged in redirect them from login page */}
+            {/* If user is logged in redirect them from login and register page */}
             <Route path='/login' element={!user ? <Login /> : <Navigate to={'/dashboard'} replace />} />
+            <Route path='/register' element={!user ? <Register /> : <Navigate to={'/dashboard'} replace />} />
 
             {/* Only have dashboard routes if user is logged in */}
             {user && (
