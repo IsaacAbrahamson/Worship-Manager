@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { AuthStatus } from '../types'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const navigate = useNavigate()
 
   async function login() {
     const res: Response = await fetch('/api/auth/login', {
@@ -19,6 +21,7 @@ export default function Login() {
       })
     })
     const json: AuthStatus = await res.json()
+    navigate('/dashboard')
   }
 
   return (

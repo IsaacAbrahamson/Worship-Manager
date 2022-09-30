@@ -8,3 +8,8 @@ export enum AuthStatus {
   Unauthorized,
   Authorized
 }
+
+export interface ContextInterface {
+  isLoaded: boolean
+  user: Partial<UserInterface>
+}

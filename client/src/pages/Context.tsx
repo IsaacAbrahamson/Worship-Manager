@@ -1,10 +1,10 @@
 import { createContext, PropsWithChildren, useEffect, useState } from "react"
-import { UserInterface } from '../types'
+import { UserInterface, ContextInterface } from '../types'
 
-export const userContext = createContext<Partial<UserInterface>>({})
+export const userContext = createContext<ContextInterface>({ user: {}, isLoaded: false })
 
 export default function Context(props: PropsWithChildren<any>) {
-  const [user, setUser] = useState<UserInterface>()
+  const [context, setContext] = useState<ContextInterface>({ user: {}, isLoaded: false })
 
   useEffect(() => {
     getUser()
@@ -12,12 +12,12 @@ export default function Context(props: PropsWithChildren<any>) {
 
   async function getUser() {
     const res: Response = await fetch('/api/auth/user', { credentials: 'include' })
-    const data: UserInterface = await res.json()
-    setUser(data)
+    const user: UserInterface = await res.json()
+    setContext({ user, isLoaded: true })
   }
 
   return (
-    <userContext.Provider value={user!}>
+    <userContext.Provider value={context!}>
       {props.children}
     </userContext.Provider>
   )
