@@ -35,8 +35,10 @@ function App() {
       {isLoaded && (
         <BrowserRouter>
           <Routes>
+            {/* Redirect to dashboard if logged in else redirect to login */}
             <Route path='/' element={<Navigate replace to={user ? '/dashboard' : '/login'} />} />
-            <Route path='/login' element={<Login updateUser={updateUser} />} />
+            {/* If user is logged in redirect them from login page */}
+            <Route path='/login' element={!user ? <Login updateUser={updateUser} /> : <Navigate replace to={'/dashboard'} />} />
 
             {/* Only have dashboard routes if user is logged in */}
             {user && (
