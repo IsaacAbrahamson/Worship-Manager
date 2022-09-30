@@ -9,7 +9,9 @@ export default function Login() {
   const [password, setPassword] = useState<string>('')
   const navigate = useNavigate()
 
-  async function login() {
+  async function login(e: React.FormEvent) {
+    e.preventDefault()
+
     const res: Response = await fetch('/api/auth/login', {
       method: 'POST',
       headers: {
@@ -30,9 +32,11 @@ export default function Login() {
   return (
     <div>
       <h1>Login</h1>
-      <input type="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={login}>Login</button>
+      <form onSubmit={login}>
+        <input type="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <button onClick={login}>Login</button>
+      </form>
       <p>Not a user? <Link to='/register'>Register for free</Link></p>
     </div>
   )

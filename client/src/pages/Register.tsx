@@ -12,7 +12,9 @@ export default function Register() {
   const [last_name, setLastName] = useState<string>('')
   const navigate = useNavigate()
 
-  async function register() {
+  async function register(e: React.FormEvent) {
+    e.preventDefault()
+
     // validate
     if (password !== passwordConf) return alert('Passwords do not match!')
 
@@ -43,12 +45,14 @@ export default function Register() {
   return (
     <div>
       <h1>Register</h1>
-      <input type="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <input type="password" placeholder="confirm password" value={passwordConf} onChange={(e) => setPasswordConf(e.target.value)} />
-      <input type="text" placeholder="first name" value={first_name} onChange={(e) => setFirstName(e.target.value)} />
-      <input type="text" placeholder="last name" value={last_name} onChange={(e) => setLastName(e.target.value)} />
-      <button onClick={register}>Register</button>
+      <form onSubmit={register}>
+        <input type="email" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input type="password" placeholder="confirm password" value={passwordConf} onChange={(e) => setPasswordConf(e.target.value)} />
+        <input type="text" placeholder="first name" value={first_name} onChange={(e) => setFirstName(e.target.value)} />
+        <input type="text" placeholder="last name" value={last_name} onChange={(e) => setLastName(e.target.value)} />
+        <button onClick={register}>Register</button>
+      </form>
       <p>Already a user? <Link to='/login'>Back to login</Link></p>
     </div>
   )
