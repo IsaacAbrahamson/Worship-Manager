@@ -1,8 +1,12 @@
 import { useState } from 'react'
-import { AuthStatus } from '../types'
+import { UserInterface } from '../types'
 import { useNavigate } from 'react-router-dom'
 
-export default function Login() {
+interface Props {
+  updateUser(newUser: UserInterface): void
+}
+
+export default function Login(props: Props) {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const navigate = useNavigate()
@@ -20,7 +24,8 @@ export default function Login() {
         password,
       })
     })
-    const json: AuthStatus = await res.json()
+    const user: UserInterface = await res.json()
+    props.updateUser(user)
     navigate('/dashboard')
   }
 

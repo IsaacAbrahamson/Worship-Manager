@@ -1,12 +1,13 @@
-import { useContext } from "react"
-import { userContext } from "./Context"
+import { UserInterface } from "../types"
 
-export default function Profile() {
-  const { user } = useContext(userContext)
+interface Props {
+  user: UserInterface
+}
 
+export default function Options(props: Props) {
   return (
     <div>
-      Profile page for User: {user ? user.email : 'no loged in'}
+      Profile page for User: {props.user ? props.user.email : 'no loged in'}
     </div>
   )
 }

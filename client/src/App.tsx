@@ -1,29 +1,54 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { useContext } from 'react'
-import { userContext } from './pages/Context'
+import { useEffect, useState } from 'react'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
 import Services from './pages/Services'
 import Options from './pages/Options'
 import People from './pages/People'
 import Songs from './pages/Songs'
+import { UserInterface } from './types'
 
 function App() {
-  const { user, isLoaded } = useContext(userContext)
+  const [user, setUser] = useState<UserInterface | undefined>()
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
+
+  useEffect(() => {
+    verifyUser()
+  }, [])
+
+  async function verifyUser() {
+    const res: Response = await fetch('/api/auth/user', { credentials: 'include' })
+    if (res.status === 200) {
+      const loggedInUser: UserInterface = await res.json()
+      setUser(loggedInUser)
+    }
+    setIsLoaded(true)
+  }
+
+  function updateUser(newUser: UserInterface): void {
+    setUser(newUser)
+  }
 
   return (
     <div className='app'>
+      {/* Make sure user has been verified before redirecting */}
       {isLoaded && (
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<Navigate replace to={user.email ? '/dashboard' : '/login'} />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/dashboard' element={<Navigate replace to="/dashboard/services" />} />
-            <Route path='/dashboard/services' element={<Services />} />
-            <Route path='/dashboard/people' element={<People />} />
-            <Route path='/dashboard/songs' element={<Songs />} />
-            <Route path='/dashboard/options' element={<Options />} />
-            <Route path='/dashboard/profile' element={<Profile />} />
+            <Route path='/' element={<Navigate replace to={user ? '/dashboard' : '/login'} />} />
+            <Route path='/login' element={<Login updateUser={updateUser} />} />
+
+            {/* Only have dashboard routes if user is logged in */}
+            {user && (
+              <>
+                <Route path='/dashboard' element={<Navigate replace to="/dashboard/services" />} />
+                <Route path='/dashboard/services' element={<Services user={user} />} />
+                <Route path='/dashboard/people' element={<People user={user} />} />
+                <Route path='/dashboard/songs' element={<Songs user={user} />} />
+                <Route path='/dashboard/options' element={<Options user={user} />} />
+                <Route path='/dashboard/profile' element={<Profile user={user} />} />
+              </>
+            )}
           </Routes>
         </BrowserRouter>
       )}

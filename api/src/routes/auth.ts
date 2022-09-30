@@ -11,7 +11,12 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 
 // Get current user from session
 router.get('/user', (req, res) => {
-  res.send(req.user ? req.user : {})
+  if (req.user) {
+    return res.status(200).send(req.user)
+  } else {
+    // The user is not logged in
+    return res.status(204).send()
+  }
 })
 
 
