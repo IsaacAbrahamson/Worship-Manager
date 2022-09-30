@@ -1,14 +1,13 @@
-import { UserInterface } from "../types"
 import Sidebar from '../components/Sidebar'
+import { useContext } from 'react'
+import UserContext from '../UserContext'
 
-interface Props {
-  user: UserInterface
-}
+export default function Options() {
+  const { user } = useContext(UserContext)
 
-export default function Options(props: Props) {
   return (
     <div>
-      Options page for User: {props.user.email}
+      Options page for User: {user!.email}
       <Sidebar />
     </div>
   )

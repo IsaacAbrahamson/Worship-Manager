@@ -4,12 +4,8 @@ export interface UserInterface {
   last_name: string
 }
 
-export enum AuthStatus {
-  Unauthorized,
-  Authorized
-}
-
 export interface ContextInterface {
-  isLoaded: boolean
-  user: Partial<UserInterface>
+  user: UserInterface | undefined
+  updateUser(newUser: UserInterface): void
+  logoutUser(): void
 }
