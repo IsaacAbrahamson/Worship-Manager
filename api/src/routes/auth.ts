@@ -9,6 +9,13 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
   res.send(req.user)
 })
 
+router.get('/logout', (req, res) => {
+  req.logout((err) => {
+    if (err) return res.status(400).send({ err })
+    res.send('success')
+  })
+})
+
 // Get current user from session
 router.get('/user', (req, res) => {
   if (req.user) {
