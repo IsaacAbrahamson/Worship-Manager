@@ -6,9 +6,11 @@ export default function Options() {
   const { user } = useContext(UserContext)
 
   return (
-    <div>
-      Songs page for User: {user!.email}
+    <div className='page'>
       <Sidebar />
+      <div className="page-content">
+        Songs page for User: {user!.email}
+      </div>
     </div>
   )
 }

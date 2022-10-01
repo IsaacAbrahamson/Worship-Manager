@@ -1,22 +1,24 @@
 import { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import UserContext from '../UserContext'
 
 export default function Sidebar() {
-  const { logoutUser } = useContext(UserContext)
-  const navigate = useNavigate()
-
-  async function logout() {
-    const res = await fetch('/api/auth/logout')
-    if (res.status === 200) {
-      logoutUser()
-      navigate('/login')
-    }
-  }
+  const { user } = useContext(UserContext)
 
   return (
     <div className='sidebar'>
-      <button onClick={logout}>Logout</button>
+      <h1 className='logo'>Worship Manager</h1>
+      <div className="links">
+        <Link to='/dashboard/services'>Services</Link>
+        <Link to='/dashboard/people'>People</Link>
+        <Link to='/dashboard/songs'>Songs</Link>
+        <Link to='/dashboard/options'>Options</Link>
+      </div>
+      <div className="profile">
+        <p className="profile-name">{user!.first_name} {user!.last_name}</p>
+        <p className="email">{user!.email}</p>
+        <Link to='/dashboard/profile'>Profile</Link>
+      </div>
     </div>
   )
 }
