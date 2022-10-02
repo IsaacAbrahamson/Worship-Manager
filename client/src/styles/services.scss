@@ -1,5 +1,6 @@
 .services {
   padding-top: 70px;
+  padding-right: 50px;
 
   .service-title {
     font-family: "Poppins", sans-serif;
@@ -9,14 +10,14 @@
   }
 
   .services-table {
-    width: 100%;
-    max-width: 800px;
     border: 2px solid #ececec;
     border-radius: 15px;
+    width: 800px;
 
     table {
       width: 100%;
-      border-spacing: 0;
+      height: 1px; /* used for height calculations ignored otherwise */
+
       th {
         text-align: left;
         font-family: "Poppins", sans-serif;
@@ -30,6 +31,7 @@
       }
       tr {
         border-bottom: 2px solid #ececec;
+        height: 100%;
       }
       tr:first-child {
         background: #f5f5f5;
@@ -48,15 +50,37 @@
       th,
       td {
         padding: 10px 20px;
+        height: 100%;
+        vertical-align: middle;
       }
       th {
         padding-top: 10px;
       }
       tr:last-child {
-        td {
-          padding-bottom: 10px;
+        padding-bottom: 10px;
+      }
+      .table-btns {
+        height: 100%;
+        padding: 0;
+        padding-right: 20px;
+        .table-btns-wrapper {
+          height: 100%;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          svg {
+            height: 20px;
+          }
+          svg:last-of-type {
+            margin-left: 15px;
+          }
         }
       }
+    }
+
+    .type-wrapper {
+      padding: 6px 10px;
+      border-radius: 4px;
     }
   }
 }

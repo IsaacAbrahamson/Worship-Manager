@@ -100,12 +100,18 @@ async function createData(userId: Types.ObjectId) {
   // Create service types
   const type1 = new ServiceType({
     type: 'Morning Service',
+    color: '#3E7460',
+    background: '#D3FFE5'
   })
   const type2 = new ServiceType({
     type: 'Evening Service',
+    color: '#746F3E',
+    background: '#FFF6A6'
   })
   const type3 = new ServiceType({
     type: 'Special Service',
+    color: '#995B5B',
+    background: '#FFB7B7'
   })
   await type1.save()
   await type2.save()

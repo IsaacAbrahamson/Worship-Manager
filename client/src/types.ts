@@ -17,6 +17,12 @@ export interface PersonInterface {
   last_name: string
 }
 
+export interface ServiceTypeInterface {
+  type: string
+  color: string
+  background: string
+}
+
 export interface EventInterface {
   _id: string
   type: string
@@ -27,7 +33,7 @@ export interface ServiceInterface {
   _id: string
   date: string
   theme: string
-  type: { type: string }
+  type: ServiceTypeInterface
   people: {
     role: { role: string },
     person: PersonInterface
