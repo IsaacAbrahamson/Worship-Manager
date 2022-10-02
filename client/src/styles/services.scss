@@ -3,4 +3,50 @@
     padding: 6px 10px;
     border-radius: 4px;
   }
+
+  table td:not(.table-btns) {
+    cursor: pointer;
+  }
+}
+
+.servicesDetail {
+  a.goBack {
+    display: flex;
+    color: #6c70a3;
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    margin-bottom: 20px;
+
+    svg {
+      margin-right: 10px;
+    }
+  }
+
+  .service-detail-bar {
+    display: flex;
+    margin-bottom: 40px;
+
+    .service-detail-item {
+      margin-right: 20px;
+      font-family: "Roboto", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      span {
+        font-weight: 500;
+        font-size: 16px;
+      }
+      span.service-detail-item--type {
+        font-weight: 400;
+        font-size: 14px;
+        padding: 4px 8px;
+        border-radius: 6px;
+        margin-left: 4px;
+      }
+    }
+  }
+
+  .table-wrapper {
+    margin-bottom: 40px;
+  }
 }

@@ -156,10 +156,18 @@ table {
 	align-items: center;
 	margin-bottom: 20px;
 
+	&.table-title-bar-small {
+		margin-bottom: 10px;
+	}
+
 	.table-title {
 		font-family: "Poppins", sans-serif;
 		font-size: 32px;
 		font-weight: 600;
+	}
+
+	.table-title-small {
+		font-size: 22px;
 	}
 
 	.table-title-btns .btn {
@@ -176,6 +184,10 @@ table {
 		transition: all 300ms;
 		svg {
 			margin-right: 6px;
+			height: 10px;
+			path {
+				fill: white;
+			}
 		}
 		&:hover {
 			background: black;
@@ -184,6 +196,13 @@ table {
 			background: none;
 			color: black;
 			border: 2px solid #ececec;
+			svg {
+				margin-right: 6px;
+				height: 10px;
+				path {
+					fill: black;
+				}
+			}
 		}
 		&.btn-outline:hover {
 			background: #ececec;
@@ -220,6 +239,11 @@ table {
 			font-family: "Roboto", sans-serif;
 			font-weight: 500;
 			font-size: 15px;
+
+			a {
+				text-decoration: none;
+				color: #444de7;
+			}
 		}
 		tr {
 			border-bottom: 2px solid #ececec;

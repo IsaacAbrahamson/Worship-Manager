@@ -13,7 +13,7 @@ export default function PersonTable(props: Props) {
         <tr key={person._id}>
           <td>{person.first_name}</td>
           <td>{person.last_name}</td>
-          <td>{person.email}</td>
+          <td><a href={`mailto:${person.email}`}>{person.email}</a></td>
           <td className="table-btns">
             <div className="table-btns-wrapper">
               <Edit />

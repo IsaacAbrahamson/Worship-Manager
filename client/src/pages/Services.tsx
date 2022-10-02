@@ -7,7 +7,7 @@ import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import { ReactComponent as CloudIcon } from '../assets/cloud.svg'
 import '../styles/services.scss'
 
-export default function Options() {
+export default function Services() {
   const { user } = useContext(UserContext)
   const [services, setServices] = useState<ServiceInterface[]>()
 

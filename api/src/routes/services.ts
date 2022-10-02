@@ -3,6 +3,8 @@ import Service from '../models/Service'
 import ServiceType from '../models/ServiceType'
 import Person from '../models/Person'
 import ServiceRole from '../models/ServiceRole'
+import Song from '../models/Song'
+import ServiceEventType from '../models/ServiceEventType'
 const router = express.Router()
 
 router.get('/', async (req: Request, res: Response) => {
@@ -15,9 +17,11 @@ router.get('/:id', async (req: Request, res: Response) => {
   const id = req.params.id
   try {
     const service = await Service.findById(id)
-      .populate({ path: 'type', select: 'type', model: ServiceType })
+      .populate({ path: 'type', model: ServiceType })
       .populate({ path: 'people', populate: { path: 'person', model: Person } })
       .populate({ path: 'people', populate: { path: 'role', select: 'role', model: ServiceRole } })
+      .populate({ path: 'events', populate: { path: 'type', model: ServiceEventType } })
+      .populate({ path: 'events', populate: { path: 'song', model: Song } })
     res.send(service)
   } catch (err) {
     console.log(err)

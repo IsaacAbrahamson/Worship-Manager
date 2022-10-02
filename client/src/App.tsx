@@ -8,6 +8,7 @@ import Options from './pages/Options'
 import People from './pages/People'
 import Songs from './pages/Songs'
 import Register from './pages/Register'
+import ServiceDetail from './pages/ServiceDetail'
 
 function App() {
   const { user, updateUser } = useContext(UserContext)
@@ -43,6 +44,7 @@ function App() {
               <>
                 <Route path='/dashboard' element={<Navigate to="/dashboard/services" replace />} />
                 <Route path='/dashboard/services' element={<Services />} />
+                <Route path='/dashboard/services/:id' element={<ServiceDetail />} />
                 <Route path='/dashboard/people' element={<People />} />
                 <Route path='/dashboard/songs' element={<Songs />} />
                 <Route path='/dashboard/options' element={<Options />} />

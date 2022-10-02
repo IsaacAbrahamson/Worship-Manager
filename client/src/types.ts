@@ -26,8 +26,9 @@ export interface PersonInterface {
 
 export interface EventInterface {
   _id: string
-  type: string
+  type: EventTypesInterface
   order: number
+  song?: SongInterface
 }
 
 export interface ServiceInterface {
