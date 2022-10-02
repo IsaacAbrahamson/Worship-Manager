@@ -10,17 +10,18 @@ export interface ContextInterface {
   logoutUser(): void
 }
 
+export interface SongInterface {
+  _id: string
+  name: string
+  page?: number
+  last_used?: string
+}
+
 export interface PersonInterface {
   _id: string
   email: string
   first_name: string
   last_name: string
-}
-
-export interface ServiceTypeInterface {
-  type: string
-  color: string
-  background: string
 }
 
 export interface EventInterface {
@@ -39,4 +40,21 @@ export interface ServiceInterface {
     person: PersonInterface
   }[]
   events: EventInterface[]
+}
+
+export interface ServiceTypeInterface {
+  _id: string
+  type: string
+  color: string
+  background: string
+}
+
+export interface EventTypesInterface {
+  _id: string
+  type: string
+}
+
+export interface RoleTypesInterface {
+  _id: string
+  role: string
 }

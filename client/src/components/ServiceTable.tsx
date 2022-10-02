@@ -33,7 +33,7 @@ export default function ServiceTable(props: Props) {
   }
 
   return (
-    <div className="services-table">
+    <div className="table-wrapper">
       <table>
         <tbody>
           <tr>

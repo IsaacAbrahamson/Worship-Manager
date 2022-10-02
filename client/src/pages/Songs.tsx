@@ -1,15 +1,43 @@
-import { useContext } from 'react'
+import { useEffect, useState } from 'react'
 import Sidebar from '../components/Sidebar'
-import UserContext from '../UserContext'
+import { ReactComponent as PlusIcon } from '../assets/plus.svg'
+import { ReactComponent as CloudIcon } from '../assets/cloud.svg'
+import { SongInterface } from '../types'
+import SongsTable from '../components/SongsTable'
 
-export default function Options() {
-  const { user } = useContext(UserContext)
+export default function Songs() {
+  const [songs, setSongs] = useState<SongInterface[]>()
+
+  useEffect(() => {
+    getPeople()
+  }, [])
+
+  async function getPeople() {
+    const res = await fetch('/api/songs/')
+    const data = await res.json()
+    setSongs(data)
+  }
 
   return (
     <div className='page'>
       <Sidebar activePage='songs' />
       <div className="page-content">
-        Songs page for User: {user!.email}
+
+        <div className="table-title-bar">
+          <h2 className='table-title'>Songs</h2>
+          <div className="table-title-btns">
+            <button className='btn btn-outline'>
+              <CloudIcon />
+              Import / Export
+            </button>
+            <button className='btn'>
+              <PlusIcon />
+              New Song
+            </button>
+          </div>
+        </div>
+        {songs ? <SongsTable songs={songs} /> : ''}
+
       </div>
     </div>
   )
