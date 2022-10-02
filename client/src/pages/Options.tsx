@@ -6,6 +6,7 @@ import { ReactComponent as CloudIcon } from '../assets/cloud.svg'
 import ServiceTypesTable from '../components/ServiceTypesTable'
 import EventTypesTable from '../components/EventTypesTable'
 import RoleTypesTable from '../components/RoleTypesTable'
+import '../styles/options.scss'
 
 type OptionsPromise = [ServiceTypeInterface[], EventTypesInterface[], RoleTypesInterface[]]
 

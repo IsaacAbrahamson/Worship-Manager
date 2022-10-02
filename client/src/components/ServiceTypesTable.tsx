@@ -11,8 +11,14 @@ export default function ServiceTypesTable(props: Props) {
     const rows: JSX.Element[] = props.types.map((type: ServiceTypeInterface) => {
       return (
         <tr key={type._id}>
-          <td>{type.color}</td>
-          <td>{type.background}</td>
+          <td>
+            <div className="colored-circle" style={{ background: type.color }}></div>
+            {type.color}
+          </td>
+          <td>
+            <div className="colored-circle" style={{ background: type.background }}></div>
+            {type.background}
+          </td>
           <td>{type.type}</td>
           <td className="table-btns">
             <div className="table-btns-wrapper">
