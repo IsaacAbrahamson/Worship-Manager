@@ -3,6 +3,8 @@ import ServiceTable from '../components/ServiceTable'
 import Sidebar from '../components/Sidebar'
 import { ServiceInterface } from '../types'
 import UserContext from '../UserContext'
+import { ReactComponent as PlusIcon } from '../assets/plus.svg'
+import { ReactComponent as CloudIcon } from '../assets/cloud.svg'
 import '../styles/services.scss'
 
 export default function Options() {
@@ -23,7 +25,19 @@ export default function Options() {
     <div className='page'>
       <Sidebar activePage='services' />
       <div className="page-content services">
-        <h2 className='service-title'>Services</h2>
+        <div className="service-title-bar">
+          <h2 className='service-title'>Services</h2>
+          <div className="service-title-btns">
+            <button className='btn btn-outline'>
+              <CloudIcon />
+              Import / Export
+            </button>
+            <button className='btn'>
+              <PlusIcon />
+              New Service
+            </button>
+          </div>
+        </div>
         {services ? <ServiceTable services={services} /> : <p>No services</p>}
       </div>
     </div>
