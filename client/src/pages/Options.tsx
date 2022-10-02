@@ -7,7 +7,7 @@ export default function Options() {
 
   return (
     <div className='page'>
-      <Sidebar />
+      <Sidebar activePage='options' />
       <div className="page-content">
         Options page for User: {user!.email}
       </div>

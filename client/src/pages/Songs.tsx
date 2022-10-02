@@ -7,7 +7,7 @@ export default function Options() {
 
   return (
     <div className='page'>
-      <Sidebar />
+      <Sidebar activePage='songs' />
       <div className="page-content">
         Songs page for User: {user!.email}
       </div>
