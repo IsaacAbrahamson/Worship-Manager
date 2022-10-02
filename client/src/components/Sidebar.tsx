@@ -17,6 +17,10 @@ export default function Sidebar(props: Props) {
   const { user, logoutUser } = useContext(UserContext)
   const navigate = useNavigate()
 
+  // Truncate strings
+  const name = `${user!.first_name} ${user!.last_name}`.slice(0, 13).concat('...')
+  const email = user!.email.slice(0, 23).concat('...')
+
   async function logout() {
     const res = await fetch('/api/auth/logout')
     if (res.status === 200) {
@@ -51,8 +55,8 @@ export default function Sidebar(props: Props) {
       </div>
       <div className="profile-card">
         <div className='profile-card-text'>
-          <p className="profile-card--name">{user!.first_name} {user!.last_name}</p>
-          <p className="profile-card--email">{user!.email}</p>
+          <p className="profile-card--name">{name}</p>
+          <p className="profile-card--email">{email}</p>
         </div>
         <div className='profile-logout' onClick={logout}><LogoutIcon /></div>
       </div>

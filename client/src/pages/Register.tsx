@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { UserInterface } from '../types'
 import { Link, useNavigate } from 'react-router-dom'
 import AppPicture from '../assets/app.png'
+import Background from '../assets/background.jpg'
 import { ReactComponent as Logo } from '../assets/logo.svg'
 import '../styles/login.scss'
 
@@ -44,7 +45,7 @@ export default function Register() {
   }
 
   return (
-    <div className='login'>
+    <div className='login' style={{ backgroundImage: `url(${Background})` }}>
       <div className="split login-split">
         <div className="logo">
           <Logo />
