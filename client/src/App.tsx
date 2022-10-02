@@ -3,7 +3,6 @@ import { useEffect, useState, useContext } from 'react'
 import { UserInterface } from './types'
 import UserContext from './UserContext'
 import Login from './pages/Login'
-import Profile from './pages/Profile'
 import Services from './pages/Services'
 import Options from './pages/Options'
 import People from './pages/People'
@@ -47,7 +46,6 @@ function App() {
                 <Route path='/dashboard/people' element={<People />} />
                 <Route path='/dashboard/songs' element={<Songs />} />
                 <Route path='/dashboard/options' element={<Options />} />
-                <Route path='/dashboard/profile' element={<Profile />} />
               </>
             )}
             {/* Redirect any other route back to root */}

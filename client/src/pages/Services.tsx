@@ -39,11 +39,13 @@ export default function Options() {
             </button>
           </div>
         </div>
+        <p className='table-subtitle'>Click on a service for details</p>
         {services ? <ServiceTable services={services} /> : ''}
 
         <div className="table-title-bar">
           <h2 className='table-title'>Past Services</h2>
         </div>
+        <p className='table-subtitle'>Click on a service for details</p>
         {services ? <ServiceTable services={services} /> : ''}
 
       </div>

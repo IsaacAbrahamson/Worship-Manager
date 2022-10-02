@@ -1,11 +1,12 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import UserContext from '../UserContext'
 import { ReactComponent as Logo } from '../assets/logo.svg'
 import { ReactComponent as ServiceIcon } from '../assets/service-icon.svg'
 import { ReactComponent as PeopleIcon } from '../assets/people-icon.svg'
 import { ReactComponent as SongsIcon } from '../assets/songs-icon.svg'
 import { ReactComponent as OptionsIcon } from '../assets/options-icon.svg'
+import { ReactComponent as LogoutIcon } from '../assets/logout.svg'
 import '../styles/sidebar.scss'
 
 interface Props {
@@ -13,7 +14,16 @@ interface Props {
 }
 
 export default function Sidebar(props: Props) {
-  const { user } = useContext(UserContext)
+  const { user, logoutUser } = useContext(UserContext)
+  const navigate = useNavigate()
+
+  async function logout() {
+    const res = await fetch('/api/auth/logout')
+    if (res.status === 200) {
+      logoutUser()
+      navigate('/login')
+    }
+  }
 
   return (
     <div className='sidebar'>
@@ -44,7 +54,7 @@ export default function Sidebar(props: Props) {
           <p className="profile-card--name">{user!.first_name} {user!.last_name}</p>
           <p className="profile-card--email">{user!.email}</p>
         </div>
-        <Link to='/dashboard/profile' className='profile-card-link'><OptionsIcon /></Link>
+        <div className='profile-logout' onClick={logout}><LogoutIcon /></div>
       </div>
     </div>
   )
