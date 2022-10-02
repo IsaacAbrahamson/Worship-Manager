@@ -25,8 +25,9 @@ export default function Options() {
     <div className='page'>
       <Sidebar activePage='services' />
       <div className="page-content services">
+
         <div className="service-title-bar">
-          <h2 className='service-title'>Services</h2>
+          <h2 className='service-title'>Upcoming Services</h2>
           <div className="service-title-btns">
             <button className='btn btn-outline'>
               <CloudIcon />
@@ -38,7 +39,13 @@ export default function Options() {
             </button>
           </div>
         </div>
-        {services ? <ServiceTable services={services} /> : <p>No services</p>}
+        {services ? <ServiceTable services={services} /> : ''}
+
+        <div className="service-title-bar">
+          <h2 className='service-title'>Past Services</h2>
+        </div>
+        {services ? <ServiceTable services={services} /> : ''}
+
       </div>
     </div>
   )
