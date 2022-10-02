@@ -26,10 +26,6 @@ export default function Songs() {
         <div className="table-title-bar">
           <h2 className='table-title'>Songs</h2>
           <div className="table-title-btns">
-            <button className='btn btn-outline'>
-              <CloudIcon />
-              Import / Export
-            </button>
             <button className='btn'>
               <PlusIcon />
               New Song

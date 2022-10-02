@@ -39,52 +39,22 @@ export default function Options() {
       <div className="page-content">
 
         {/* Service Types */}
-        <div className="table-title-bar">
-          <h2 className='table-title'>Service Types</h2>
-          <div className="table-title-btns">
-            <button className='btn btn-outline'>
-              <CloudIcon />
-              Import / Export
-            </button>
-            <button className='btn'>
-              <PlusIcon />
-              New Service Type
-            </button>
-          </div>
+        <div className="table-title-bar table-title-bar-small">
+          <h2 className='table-title table-title-small'>Service Types</h2>
         </div>
-        {serviceTypes ? <ServiceTypesTable types={serviceTypes} /> : ''}
+        {serviceTypes ? <ServiceTypesTable types={serviceTypes} small /> : ''}
 
         {/* Event Types */}
-        <div className="table-title-bar">
-          <h2 className='table-title'>Event Types</h2>
-          <div className="table-title-btns">
-            <button className='btn btn-outline'>
-              <CloudIcon />
-              Import / Export
-            </button>
-            <button className='btn'>
-              <PlusIcon />
-              New Event Type
-            </button>
-          </div>
+        <div className="table-title-bar table-title-bar-small">
+          <h2 className='table-title table-title-small'>Event Types</h2>
         </div>
-        {eventTypes ? <EventTypesTable types={eventTypes} /> : ''}
+        {eventTypes ? <EventTypesTable types={eventTypes} small /> : ''}
 
         {/* Role Types */}
-        <div className="table-title-bar">
-          <h2 className='table-title'>Role Types</h2>
-          <div className="table-title-btns">
-            <button className='btn btn-outline'>
-              <CloudIcon />
-              Import / Export
-            </button>
-            <button className='btn'>
-              <PlusIcon />
-              New Role Type
-            </button>
-          </div>
+        <div className="table-title-bar table-title-bar-small">
+          <h2 className='table-title table-title-small'>Role Types</h2>
         </div>
-        {roleTypes ? <RoleTypesTable roles={roleTypes} /> : ''}
+        {roleTypes ? <RoleTypesTable roles={roleTypes} small /> : ''}
 
       </div>
     </div>

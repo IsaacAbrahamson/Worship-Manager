@@ -313,20 +313,34 @@ table {
 			margin-right: 20px;
 		}
 
+		input {
+			color: #6f747f;
+			border: 2px solid #ececec;
+			border-radius: 5px;
+			padding: 3px 5px;
+			font-family: "Roboto", sans-serif;
+			font-weight: 500;
+			margin-right: 20px;
+		}
+
 		button {
 			cursor: pointer;
-			background-color: white;
+			background: white;
 			color: #6f747f;
 			border: 2px solid #ececec;
 			border-radius: 5px;
 			padding: 3px 8px;
 			font-family: "Roboto", sans-serif;
 			font-weight: 500;
+			transition: all 300ms;
 			svg {
 				margin-right: 4px;
 				path {
 					fill: #6f747f;
 				}
+			}
+			&:hover {
+				background: #ececec;
 			}
 		}
 	}

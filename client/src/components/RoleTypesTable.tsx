@@ -1,9 +1,11 @@
 import { RoleTypesInterface } from "../types"
 import { ReactComponent as Edit } from '../assets/edit.svg'
+import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import { ReactComponent as Delete } from '../assets/delete.svg'
 
 interface Props {
-  roles: RoleTypesInterface[]
+  roles: RoleTypesInterface[],
+  small?: boolean
 }
 
 export default function RoleTypesTable(props: Props) {
@@ -14,7 +16,6 @@ export default function RoleTypesTable(props: Props) {
           <td>{role.role}</td>
           <td className="table-btns">
             <div className="table-btns-wrapper">
-              <Edit />
               <Delete />
             </div>
           </td>
@@ -25,7 +26,7 @@ export default function RoleTypesTable(props: Props) {
   }
 
   return (
-    <div className="table-wrapper">
+    <div className={props.small ? 'table-wrapper table-wrapper-small' : 'table-wrapper'}>
       <table>
         <tbody>
           <tr>
@@ -35,6 +36,10 @@ export default function RoleTypesTable(props: Props) {
           {createRows()}
         </tbody>
       </table>
+      <div className="table-inputs">
+        <input type="text" placeholder="Enter new role..." />
+        <button><PlusIcon /> Add Role</button>
+      </div>
     </div>
   )
 }
