@@ -7,6 +7,7 @@ const router = express.Router()
 
 router.get('/', async (req: Request, res: Response) => {
   const services = await Service.find({})
+    .populate({ path: 'type', select: 'type', model: ServiceType })
   res.send(services)
 })
 
