@@ -289,11 +289,16 @@ table {
 				justify-content: flex-end;
 				align-items: center;
 				svg {
+					position: relative;
 					height: 20px;
 					cursor: pointer;
+					transition: all 300ms;
 				}
 				svg:last-of-type {
 					margin-left: 15px;
+				}
+				svg:hover path {
+					fill: #6f747f;
 				}
 			}
 		}
