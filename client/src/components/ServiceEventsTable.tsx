@@ -1,8 +1,10 @@
 import { EventInterface } from "../types"
+import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import { ReactComponent as Delete } from '../assets/delete.svg'
 
 interface Props {
-  events: EventInterface[]
+  events: EventInterface[],
+  small?: boolean
 }
 
 export default function ServiceEventsTable(props: Props) {
@@ -23,7 +25,7 @@ export default function ServiceEventsTable(props: Props) {
   }
 
   return (
-    <div className="table-wrapper">
+    <div className={props.small ? 'table-wrapper table-wrapper-small' : 'table-wrapper'}>
       <table>
         <tbody>
           <tr>
@@ -33,6 +35,12 @@ export default function ServiceEventsTable(props: Props) {
           {createRows()}
         </tbody>
       </table>
+      <div className="table-inputs">
+        <select name="personSelect">
+          <option value="" selected>Choose event...</option>
+        </select>
+        <button><PlusIcon /> Add Event</button>
+      </div>
     </div>
   )
 }

@@ -1,11 +1,13 @@
 import { EventInterface, PersonInterface } from "../types"
+import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import { ReactComponent as Delete } from '../assets/delete.svg'
 
 interface Props {
   people: {
     role: { role: string },
     person: PersonInterface
-  }[]
+  }[],
+  small: boolean
 }
 
 export default function PeopleEventsTable(props: Props) {
@@ -28,7 +30,7 @@ export default function PeopleEventsTable(props: Props) {
   }
 
   return (
-    <div className="table-wrapper">
+    <div className={props.small ? 'table-wrapper table-wrapper-small' : 'table-wrapper'}>
       <table>
         <tbody>
           <tr>
@@ -40,6 +42,15 @@ export default function PeopleEventsTable(props: Props) {
           {createRows()}
         </tbody>
       </table>
+      <div className="table-inputs">
+        <select name="personSelect">
+          <option value="" selected>Choose person...</option>
+        </select>
+        <select name="roleSelect">
+          <option value="" selected>Choose role...</option>
+        </select>
+        <button><PlusIcon /> Add Person</button>
+      </div>
     </div>
   )
 }

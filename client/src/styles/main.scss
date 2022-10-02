@@ -224,6 +224,10 @@ table {
 	max-width: 800px;
 	margin-bottom: 50px;
 
+	&.table-wrapper.table-wrapper-small {
+		margin-bottom: 40px;
+	}
+
 	table {
 		width: 100%;
 		height: 1px; /* used for height calculations ignored otherwise */
@@ -290,6 +294,38 @@ table {
 				}
 				svg:last-of-type {
 					margin-left: 15px;
+				}
+			}
+		}
+	}
+
+	.table-inputs {
+		border-top: 2px solid #ececec;
+		padding: 10px 20px;
+
+		select {
+			color: #6f747f;
+			border: 2px solid #ececec;
+			border-radius: 5px;
+			padding: 3px 5px;
+			font-family: "Roboto", sans-serif;
+			font-weight: 500;
+			margin-right: 20px;
+		}
+
+		button {
+			cursor: pointer;
+			background-color: white;
+			color: #6f747f;
+			border: 2px solid #ececec;
+			border-radius: 5px;
+			padding: 3px 8px;
+			font-family: "Roboto", sans-serif;
+			font-weight: 500;
+			svg {
+				margin-right: 4px;
+				path {
+					fill: #6f747f;
 				}
 			}
 		}

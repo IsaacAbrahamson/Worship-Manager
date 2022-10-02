@@ -67,13 +67,13 @@ export default function ServiceDetails() {
             <div className="table-title-bar table-title-bar-small">
               <h2 className='table-title table-title-small'>Events</h2>
             </div>
-            <ServiceEventsTable events={service.events} />
+            <ServiceEventsTable events={service.events} small />
 
             {/* People Table */}
             <div className="table-title-bar table-title-bar-small">
               <h2 className='table-title table-title-small'>People</h2>
             </div>
-            <ServicePeopleTable people={service.people} />
+            <ServicePeopleTable people={service.people} small />
           </>
         )}
       </div>
