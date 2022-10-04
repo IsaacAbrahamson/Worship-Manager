@@ -1,8 +1,6 @@
 import Sidebar from '../components/Sidebar'
 import { useEffect, useState } from 'react'
 import { EventTypesInterface, RoleTypesInterface, ServiceTypeInterface } from '../types'
-import { ReactComponent as PlusIcon } from '../assets/plus.svg'
-import { ReactComponent as CloudIcon } from '../assets/cloud.svg'
 import ServiceTypesTable from '../components/ServiceTypesTable'
 import EventTypesTable from '../components/EventTypesTable'
 import RoleTypesTable from '../components/RoleTypesTable'
@@ -48,7 +46,7 @@ export default function Options() {
         <div className="table-title-bar table-title-bar-small">
           <h2 className='table-title table-title-small'>Event Types</h2>
         </div>
-        {eventTypes ? <EventTypesTable types={eventTypes} small /> : ''}
+        {eventTypes ? <EventTypesTable types={eventTypes} setEventTypes={setEventTypes} small /> : ''}
 
         {/* Role Types */}
         <div className="table-title-bar table-title-bar-small">

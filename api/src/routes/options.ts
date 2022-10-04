@@ -12,15 +12,40 @@ router.get('/events', async (req: Request, res: Response) => {
 })
 
 router.post('/events/new', async (req: Request, res: Response) => {
-  res.send('type: ' + req.body.type)
-})
-
-router.post('/events/update', async (req: Request, res: Response) => {
-  res.send('id: ' + req.body.id)
+  const type = new ServiceEventType({ type: req.body.type })
+  try {
+    const newType = await type.save()
+    res.send(newType)
+  } catch (err) {
+    console.log(err)
+    res.status(400).send({ err })
+  }
 })
 
 router.post('/events/delete', async (req: Request, res: Response) => {
-  res.send('id: ' + req.body.id)
+  const _id: string = req.body.id
+
+  // Do not delete role if a service uses that event
+  const existing = await Service
+    .findOne({
+      'events': {
+        $elemMatch: { 'type': _id }
+      }
+    })
+  if (existing) {
+    return res.status(400).send('Cannot delete event type that is currently assigned to a service. Please delete any uses of this event first.')
+  }
+
+  // Delete role
+  try {
+    await ServiceEventType.deleteOne({ _id })
+    res.send('Success')
+  } catch (err) {
+    let message = ''
+    if (err instanceof Error) message = err.message
+    else message = 'An unknown error occured'
+    res.status(400).send(message)
+  }
 })
 
 
