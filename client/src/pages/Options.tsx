@@ -54,7 +54,7 @@ export default function Options() {
         <div className="table-title-bar table-title-bar-small">
           <h2 className='table-title table-title-small'>Role Types</h2>
         </div>
-        {roleTypes ? <RoleTypesTable roles={roleTypes} small /> : ''}
+        {roleTypes ? <RoleTypesTable roles={roleTypes} setRoleTypes={setRoleTypes} small /> : ''}
 
       </div>
     </div>
