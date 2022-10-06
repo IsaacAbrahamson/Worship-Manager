@@ -34,8 +34,8 @@ export default function Options() {
   return (
     <div className='page'>
       <Sidebar activePage='options' />
-      <div className="page-content">
 
+      <div className="page-content">
         {/* Service Types */}
         <div className="table-title-bar table-title-bar-small">
           <h2 className='table-title table-title-small'>Service Types</h2>
@@ -53,7 +53,6 @@ export default function Options() {
           <h2 className='table-title table-title-small'>Role Types</h2>
         </div>
         {roleTypes ? <RoleTypesTable roles={roleTypes} setRoleTypes={setRoleTypes} small /> : ''}
-
       </div>
     </div>
   )

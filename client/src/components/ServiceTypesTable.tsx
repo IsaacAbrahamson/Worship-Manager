@@ -2,7 +2,8 @@ import { ServiceTypeInterface } from "../types"
 import { ReactComponent as Edit } from '../assets/edit.svg'
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import { ReactComponent as Delete } from '../assets/delete.svg'
-import { useState } from "react"
+import Modal from '../components/Modal'
+import { ChangeEvent, FormEvent, useState } from "react"
 
 interface Props {
   types: ServiceTypeInterface[]
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export default function ServiceTypesTable(props: Props) {
+  const [chosenType, setChosenType] = useState<ServiceTypeInterface>()
+  const [showModal, setShowModal] = useState<boolean>(false)
   const [typeInput, setTypeInput] = useState<string>('')
 
   function createRows(): JSX.Element[] {
@@ -28,7 +31,7 @@ export default function ServiceTypesTable(props: Props) {
           </td>
           <td className="table-btns">
             <div className="table-btns-wrapper">
-              <Edit />
+              <Edit onClick={() => createModal(type)} />
               <Delete onClick={() => deleteType(type._id)} />
             </div>
           </td>
@@ -38,7 +41,12 @@ export default function ServiceTypesTable(props: Props) {
     return rows
   }
 
-  async function submitType(e: React.FormEvent) {
+  function createModal(type: ServiceTypeInterface) {
+    setChosenType(type)
+    setShowModal(true)
+  }
+
+  async function createType(e: FormEvent) {
     e.preventDefault()
     if (typeInput === '') return
 
@@ -75,25 +83,82 @@ export default function ServiceTypesTable(props: Props) {
     }
   }
 
+  function updateType(e: ChangeEvent<HTMLInputElement>) {
+    setChosenType(prev => {
+      return {
+        ...prev!,
+        [e.target.name]: e.target.value
+      }
+    })
+  }
+
+  async function saveModal() {
+    const res = await fetch('/api/options/types/update', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(chosenType)
+    })
+
+    if (res.status === 200) {
+      const updatedType: ServiceTypeInterface = await res.json()
+      // Update service types with new value
+      props.setServiceTypes(prev => {
+        return prev!.map(e => {
+          if (e._id !== updatedType._id) return e
+          return {
+            ...e,
+            type: updatedType.type,
+            color: updatedType.color,
+            background: updatedType.background
+          }
+        })
+      })
+      setShowModal(false)
+    } else {
+      const err = await res.text()
+      alert(err)
+    }
+  }
+
   return (
-    <div className={props.small ? 'table-wrapper table-wrapper-small' : 'table-wrapper'}>
-      <table>
-        <tbody>
-          <tr>
-            <th>Type</th>
-            <th>Color</th>
-            <th>Background</th>
-            <th></th>
-          </tr>
-          {createRows()}
-        </tbody>
-      </table>
-      <div className="table-inputs">
-        <form onSubmit={submitType}>
-          <input type="text" name="role" placeholder="Enter new service type..." value={typeInput} onChange={(e) => setTypeInput(e.target.value)} />
-          <button><PlusIcon /> Add Service type</button>
-        </form>
+    <>
+      {chosenType && (
+        <Modal
+          title='Update Service Type'
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          onSave={saveModal}
+        >
+          <form>
+            <label htmlFor="type">Type</label>
+            <input type="text" name="type" value={chosenType.type} onChange={updateType} />
+            <label htmlFor="color"><span className="colored-circle" style={{ background: chosenType.color }}></span>Color</label>
+            <input type="text" name="color" value={chosenType.color} onChange={updateType} />
+            <label htmlFor="background"><span className="colored-circle" style={{ background: chosenType.background }}></span>Background</label>
+            <input type="text" name="background" value={chosenType.background} onChange={updateType} />
+          </form>
+        </Modal>
+      )}
+
+      <div className={props.small ? 'table-wrapper table-wrapper-small' : 'table-wrapper'}>
+        <table>
+          <tbody>
+            <tr>
+              <th>Type</th>
+              <th>Color</th>
+              <th>Background</th>
+              <th></th>
+            </tr>
+            {createRows()}
+          </tbody>
+        </table>
+        <div className="table-inputs">
+          <form onSubmit={createType}>
+            <input type="text" name="role" placeholder="Enter new service type..." value={typeInput} onChange={(e) => setTypeInput(e.target.value)} />
+            <button><PlusIcon /> Add Service type</button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

@@ -120,7 +120,22 @@ router.post('/types/new', async (req: Request, res: Response) => {
 })
 
 router.post('/types/update', async (req: Request, res: Response) => {
-  res.send('id: ' + req.body.id)
+  const { _id, type, color, background } = req.body
+
+  // Make sure all update parameters are present
+  if (!type || !color || !background) {
+    return res.status(400).send('Missing required parameter')
+  }
+
+  try {
+    await ServiceType.findByIdAndUpdate(_id, { type, color, background })
+    res.send({ _id, type, color, background })
+  } catch (err) {
+    let message = ''
+    if (err instanceof Error) message = err.message
+    else message = 'An unknown error occured'
+    res.status(400).send(message)
+  }
 })
 
 router.post('/types/delete', async (req: Request, res: Response) => {
@@ -134,7 +149,7 @@ router.post('/types/delete', async (req: Request, res: Response) => {
 
   // Delete role
   try {
-    await ServiceEventType.deleteOne({ _id })
+    await ServiceType.deleteOne({ _id })
     res.send('Success')
   } catch (err) {
     let message = ''
