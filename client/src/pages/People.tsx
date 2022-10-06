@@ -71,7 +71,7 @@ export default function Options() {
       <Sidebar activePage='people' />
       {newPerson && (
         <Modal
-          title='Update Person'
+          title='Create Person'
           show={showModal}
           onClose={() => setShowModal(false)}
           onSave={saveModal}

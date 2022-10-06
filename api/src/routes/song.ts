@@ -9,7 +9,16 @@ router.get('/', async (req: Request, res: Response) => {
 })
 
 router.post('/new', async (req: Request, res: Response) => {
-  res.send('name: ' + req.body.name)
+  const { name, page, last_used, userId } = req.body
+
+  try {
+    const newSong = new Song({ name, page, last_used, userId })
+    await newSong.save()
+    res.send(newSong)
+  } catch (err) {
+    console.log(err)
+    res.status(400).send({ err })
+  }
 })
 
 router.post('/update', async (req: Request, res: Response) => {
