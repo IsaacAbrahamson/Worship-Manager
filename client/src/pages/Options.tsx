@@ -40,7 +40,7 @@ export default function Options() {
         <div className="table-title-bar table-title-bar-small">
           <h2 className='table-title table-title-small'>Service Types</h2>
         </div>
-        {serviceTypes ? <ServiceTypesTable types={serviceTypes} small /> : ''}
+        {serviceTypes ? <ServiceTypesTable types={serviceTypes} setServiceTypes={setServiceTypes} small /> : ''}
 
         {/* Event Types */}
         <div className="table-title-bar table-title-bar-small">

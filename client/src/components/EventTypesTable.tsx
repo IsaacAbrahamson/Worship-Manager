@@ -5,7 +5,7 @@ import { ReactComponent as Delete } from '../assets/delete.svg'
 import { useState } from "react"
 
 interface Props {
-  types: EventTypesInterface[],
+  types: EventTypesInterface[]
   setEventTypes: React.Dispatch<React.SetStateAction<EventTypesInterface[] | undefined>>
   small?: boolean
 }
