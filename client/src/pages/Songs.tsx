@@ -96,7 +96,7 @@ export default function Songs() {
               </button>
             </div>
           </div>
-          {songs ? <SongsTable songs={songs} /> : ''}
+          {songs ? <SongsTable songs={songs} setSongs={setSongs} /> : ''}
 
         </div>
       </div>

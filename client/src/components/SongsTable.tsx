@@ -5,6 +5,7 @@ import date from 'date-and-time'
 
 interface Props {
   songs: SongInterface[]
+  setSongs: React.Dispatch<React.SetStateAction<SongInterface[] | undefined>>
 }
 
 export default function SongsTable(props: Props) {
@@ -18,13 +19,28 @@ export default function SongsTable(props: Props) {
           <td className="table-btns">
             <div className="table-btns-wrapper">
               <Edit />
-              <Delete />
+              <Delete onClick={() => deleteSong(song._id)} />
             </div>
           </td>
         </tr>
       )
     })
     return rows
+  }
+
+  async function deleteSong(id: string) {
+    const res = await fetch('/api/songs/delete', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id })
+    })
+
+    if (res.status === 200) {
+      props.setSongs(prev => prev?.filter(e => e._id !== id))
+    } else {
+      const err = await res.text()
+      alert(err)
+    }
   }
 
   return (

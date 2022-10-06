@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express'
+import Service from '../models/Service'
 import Song from '../models/Song'
 const router = express.Router()
 
@@ -26,7 +27,29 @@ router.post('/update', async (req: Request, res: Response) => {
 })
 
 router.post('/delete', async (req: Request, res: Response) => {
-  res.send('id: ' + req.body.id)
+  const _id: string = req.body.id
+
+  // Do not delete if a service uses that person
+  const existing = await Service
+    .findOne({
+      events: {
+        $elemMatch: { song: _id }
+      }
+    })
+  if (existing) {
+    return res.status(400).send('Cannot delete song that is currently assigned to a service. Please delete any services using this song first.')
+  }
+
+  // Delete person
+  try {
+    await Song.deleteOne({ _id })
+    res.send('Success')
+  } catch (err) {
+    let message = ''
+    if (err instanceof Error) message = err.message
+    else message = 'An unknown error occured'
+    res.status(400).send(message)
+  }
 })
 
 
