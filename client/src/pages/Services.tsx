@@ -29,10 +29,6 @@ export default function Services() {
         <div className="table-title-bar">
           <h2 className='table-title'>Upcoming Services</h2>
           <div className="table-title-btns">
-            {/* <button className='btn btn-outline'>
-              <CloudIcon />
-              Import / Export
-            </button> */}
             <button className='btn'>
               <PlusIcon />
               New Service
