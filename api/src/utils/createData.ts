@@ -82,15 +82,19 @@ async function createData(userId: Types.ObjectId) {
   // Create service roles
   const role1 = new ServiceRole({
     role: 'Worship Leader',
+    userId
   })
   const role2 = new ServiceRole({
     role: 'Guitarist',
+    userId
   })
   const role3 = new ServiceRole({
     role: 'Pianist',
+    userId
   })
   const role4 = new ServiceRole({
     role: 'Singer',
+    userId
   })
   await role1.save()
   await role2.save()
@@ -101,17 +105,20 @@ async function createData(userId: Types.ObjectId) {
   const type1 = new ServiceType({
     type: 'Morning Service',
     color: '#3E7460',
-    background: '#D3FFE5'
+    background: '#D3FFE5',
+    userId
   })
   const type2 = new ServiceType({
     type: 'Evening Service',
     color: '#746F3E',
-    background: '#FFF6A6'
+    background: '#FFF6A6',
+    userId
   })
   const type3 = new ServiceType({
     type: 'Special Service',
     color: '#995B5B',
-    background: '#FFB7B7'
+    background: '#FFB7B7',
+    userId
   })
   await type1.save()
   await type2.save()
@@ -120,12 +127,15 @@ async function createData(userId: Types.ObjectId) {
   // Create Service Event Types
   const eventType1 = new ServiceEventType({
     type: 'Welcome',
+    userId
   })
   const eventType2 = new ServiceEventType({
     type: 'Song',
+    userId
   })
   const eventType3 = new ServiceEventType({
     type: 'Closing',
+    userId
   })
   await eventType1.save()
   await eventType2.save()

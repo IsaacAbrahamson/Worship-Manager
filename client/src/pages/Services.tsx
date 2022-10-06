@@ -4,7 +4,6 @@ import Sidebar from '../components/Sidebar'
 import { ServiceInterface } from '../types'
 import UserContext from '../UserContext'
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
-import { ReactComponent as CloudIcon } from '../assets/cloud.svg'
 import '../styles/services.scss'
 
 export default function Services() {
@@ -16,7 +15,7 @@ export default function Services() {
   }, [])
 
   async function getServices() {
-    const res = await fetch('/api/services/')
+    const res = await fetch(`/api/services?userId=${user?._id}`)
     const data = await res.json()
     setServices(data)
   }

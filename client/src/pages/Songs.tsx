@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Sidebar from '../components/Sidebar'
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import { ReactComponent as CloudIcon } from '../assets/cloud.svg'
 import { SongInterface } from '../types'
+import UserContext from '../UserContext'
 import SongsTable from '../components/SongsTable'
 
 export default function Songs() {
+  const { user } = useContext(UserContext)
   const [songs, setSongs] = useState<SongInterface[]>()
 
   useEffect(() => {
@@ -13,7 +15,7 @@ export default function Songs() {
   }, [])
 
   async function getPeople() {
-    const res = await fetch('/api/songs/')
+    const res = await fetch(`/api/songs?userId=${user?._id}`)
     const data = await res.json()
     setSongs(data)
   }

@@ -1,14 +1,16 @@
 import Sidebar from '../components/Sidebar'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { EventTypesInterface, RoleTypesInterface, ServiceTypeInterface } from '../types'
 import ServiceTypesTable from '../components/ServiceTypesTable'
 import EventTypesTable from '../components/EventTypesTable'
 import RoleTypesTable from '../components/RoleTypesTable'
+import UserContext from '../UserContext'
 import '../styles/options.scss'
 
 type OptionsPromise = [ServiceTypeInterface[], EventTypesInterface[], RoleTypesInterface[]]
 
 export default function Options() {
+  const { user } = useContext(UserContext)
   const [serviceTypes, setServiceTypes] = useState<ServiceTypeInterface[]>()
   const [eventTypes, setEventTypes] = useState<EventTypesInterface[]>()
   const [roleTypes, setRoleTypes] = useState<RoleTypesInterface[]>()
@@ -18,7 +20,7 @@ export default function Options() {
   }, [])
 
   async function getOptions() {
-    const promises = [fetchData('/api/options/types'), fetchData('/api/options/events'), fetchData('/api/options/roles')]
+    const promises = [fetchData(`/api/options/types?userId=${user?._id}`), fetchData(`/api/options/events?userId=${user?._id}`), fetchData(`/api/options/roles?userId=${user?._id}`)]
     const [types, events, roles] = await Promise.all(promises) as OptionsPromise
     setServiceTypes(types)
     setEventTypes(events)

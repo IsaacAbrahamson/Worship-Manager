@@ -1,11 +1,13 @@
 import Sidebar from '../components/Sidebar'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { PersonInterface } from '../types'
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import { ReactComponent as CloudIcon } from '../assets/cloud.svg'
+import UserContext from '../UserContext'
 import PersonTable from '../components/PersonTable'
 
 export default function Options() {
+  const { user } = useContext(UserContext)
   const [people, setPeople] = useState<PersonInterface[]>()
 
   useEffect(() => {
@@ -13,7 +15,7 @@ export default function Options() {
   }, [])
 
   async function getPeople() {
-    const res = await fetch('/api/people/')
+    const res = await fetch(`/api/people?userId=${user?._id}`)
     const data = await res.json()
     setPeople(data)
   }

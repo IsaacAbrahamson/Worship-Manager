@@ -3,7 +3,8 @@ import Person from '../models/Person'
 const router = express.Router()
 
 router.get('/', async (req: Request, res: Response) => {
-  const people = await Person.find({})
+  const { userId } = req.query
+  const people = await Person.find({ userId })
   res.send(people)
 })
 

@@ -3,7 +3,8 @@ import Song from '../models/Song'
 const router = express.Router()
 
 router.get('/', async (req: Request, res: Response) => {
-  const songs = await Song.find({})
+  const { userId } = req.query
+  const songs = await Song.find({ userId })
   res.send(songs)
 })
 

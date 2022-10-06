@@ -17,13 +17,17 @@ export default function PersonTable(props: Props) {
           <td className="table-btns">
             <div className="table-btns-wrapper">
               <Edit />
-              <Delete />
+              <Delete onClick={() => deletePerson(person._id)} />
             </div>
           </td>
         </tr>
       )
     })
     return peopleRows
+  }
+
+  async function deletePerson(id: string) {
+    console.log(id)
   }
 
   return (

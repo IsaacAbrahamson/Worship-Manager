@@ -2,16 +2,8 @@ import express, { Request, Response } from 'express'
 import User from '../models/User'
 import passport from 'passport'
 import bcrypt from 'bcrypt'
+import createData from '../utils/createData'
 const router = express.Router()
-
-// Password is not used when user is sent to client
-export interface AppUser {
-  email: string
-  first_name: string
-  last_name: string
-  password?: string
-  save?: any
-}
 
 // Authenticate email and password and get user from session
 router.post('/login', passport.authenticate('local'), (req, res) => {
@@ -64,10 +56,14 @@ router.post('/register', async (req, res) => {
   // Create new user
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    const newUser = new User({ email, first_name, last_name, password: hashedPassword }) as AppUser
+    const newUser = new User({ email, first_name, last_name, password: hashedPassword })
     await newUser.save()
     // do not send password to client
-    delete newUser.password
+    newUser.password = ''
+
+    // Create data for new user
+    await createData(newUser._id)
+
     res.status(200).send({ newUser })
   } catch (err) {
     console.log(err)

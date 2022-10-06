@@ -8,7 +8,8 @@ import ServiceEventType from '../models/ServiceEventType'
 const router = express.Router()
 
 router.get('/', async (req: Request, res: Response) => {
-  const services = await Service.find({})
+  const { userId } = req.query
+  const services = await Service.find({ userId })
     .populate({ path: 'type', model: ServiceType })
   res.send(services)
 })

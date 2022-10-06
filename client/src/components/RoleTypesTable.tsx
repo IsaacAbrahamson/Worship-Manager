@@ -1,7 +1,8 @@
 import { RoleTypesInterface } from "../types"
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import { ReactComponent as Delete } from '../assets/delete.svg'
-import React, { useState } from "react"
+import UserContext from '../UserContext'
+import React, { useContext, useState } from "react"
 
 interface Props {
   roles: RoleTypesInterface[],
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function RoleTypesTable(props: Props) {
+  const { user } = useContext(UserContext)
   const [roleInput, setRoleInput] = useState<string>('')
 
   function createRows(): JSX.Element[] {
@@ -35,7 +37,7 @@ export default function RoleTypesTable(props: Props) {
     const res = await fetch('/api/options/roles/new', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ role: roleInput })
+      body: JSON.stringify({ role: roleInput, userId: user?._id })
     })
 
     if (res.status === 200) {

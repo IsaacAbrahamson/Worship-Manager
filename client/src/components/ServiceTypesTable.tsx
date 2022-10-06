@@ -2,8 +2,9 @@ import { ServiceTypeInterface } from "../types"
 import { ReactComponent as Edit } from '../assets/edit.svg'
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import { ReactComponent as Delete } from '../assets/delete.svg'
+import UserContext from '../UserContext'
 import Modal from '../components/Modal'
-import { ChangeEvent, FormEvent, useState } from "react"
+import { useContext, ChangeEvent, FormEvent, useState } from "react"
 
 interface Props {
   types: ServiceTypeInterface[]
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export default function ServiceTypesTable(props: Props) {
+  const { user } = useContext(UserContext)
   const [chosenType, setChosenType] = useState<ServiceTypeInterface>()
   const [showModal, setShowModal] = useState<boolean>(false)
   const [typeInput, setTypeInput] = useState<string>('')
@@ -53,7 +55,7 @@ export default function ServiceTypesTable(props: Props) {
     const res = await fetch('/api/options/types/new', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: typeInput })
+      body: JSON.stringify({ type: typeInput, userId: user?._id })
     })
 
     if (res.status === 200) {

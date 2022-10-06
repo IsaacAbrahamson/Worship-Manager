@@ -8,14 +8,17 @@ const router = express.Router()
 
 // Event Type Routes
 router.get('/events', async (req: Request, res: Response) => {
-  const types = await ServiceEventType.find({})
+  const { userId } = req.query
+  const types = await ServiceEventType.find({ userId })
   res.send(types)
 })
 
 router.post('/events/new', async (req: Request, res: Response) => {
-  const type = new ServiceEventType({ type: req.body.type })
+  const { type, userId } = req.body
+
   try {
-    const newType = await type.save()
+    const newType = new ServiceEventType({ type, userId })
+    await newType.save()
     res.send(newType)
   } catch (err) {
     console.log(err)
@@ -53,14 +56,17 @@ router.post('/events/delete', async (req: Request, res: Response) => {
 
 // Role Type Routes
 router.get('/roles', async (req: Request, res: Response) => {
-  const roles = await ServiceRole.find({})
+  const { userId } = req.query
+  const roles = await ServiceRole.find({ userId })
   res.send(roles)
 })
 
 router.post('/roles/new', async (req: Request, res: Response) => {
-  const role = new ServiceRole({ role: req.body.role })
+  const { role, userId } = req.body
+
   try {
-    const newRole = await role.save()
+    const newRole = new ServiceRole({ role, userId })
+    await newRole.save()
     res.send(newRole)
   } catch (err) {
     console.log(err)
@@ -98,20 +104,23 @@ router.post('/roles/delete', async (req: Request, res: Response) => {
 
 // Service Type Routes
 router.get('/types', async (req: Request, res: Response) => {
-  const types = await ServiceType.find({})
+  const { userId } = req.query
+  const types = await ServiceType.find({ userId })
   res.send(types)
 })
 
 router.post('/types/new', async (req: Request, res: Response) => {
+  const { type, userId } = req.body
   const background: string = randomColor()
 
-  const type = new ServiceType({
-    type: req.body.type,
-    color: getContrast(hexToRgb(background)),
-    background
-  })
   try {
-    const newType = await type.save()
+    const newType = new ServiceType({
+      type,
+      color: getContrast(hexToRgb(background)),
+      background,
+      userId
+    })
+    await newType.save()
     res.send(newType)
   } catch (err) {
     console.log(err)
