@@ -11,7 +11,6 @@ interface Props {
 }
 
 export default function PersonTable(props: Props) {
-  const { user } = useContext(UserContext)
   const [person, setPerson] = useState<PersonInterface>()
   const [showModal, setShowModal] = useState<boolean>(false)
 

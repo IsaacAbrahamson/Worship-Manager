@@ -23,7 +23,22 @@ router.post('/new', async (req: Request, res: Response) => {
 })
 
 router.post('/update', async (req: Request, res: Response) => {
-  res.send('id: ' + req.body.id)
+  const { _id, name, page, last_used } = req.body
+
+  // Make sure all needed parameters are present
+  if (!name) {
+    return res.status(400).send('Missing required parameter')
+  }
+
+  try {
+    await Song.findByIdAndUpdate(_id, { name, page, last_used })
+    res.send({ _id, name, page, last_used })
+  } catch (err) {
+    let message = ''
+    if (err instanceof Error) message = err.message
+    else message = 'An unknown error occured'
+    res.status(400).send(message)
+  }
 })
 
 router.post('/delete', async (req: Request, res: Response) => {
