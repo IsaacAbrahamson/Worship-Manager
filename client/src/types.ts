@@ -33,6 +33,7 @@ export interface EventInterface {
 }
 
 export interface ServicePersonInterface {
+  _id?: string
   role: { role: string },
   person: PersonInterface
 }

@@ -70,7 +70,6 @@ export default function ServiceEventsTable(props: Props) {
     })
 
     if (res.status === 200) {
-      await res.json() as ServiceInterface
       getEvents()
     } else {
       alert('Could not add event')

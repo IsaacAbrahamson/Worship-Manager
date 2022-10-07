@@ -16,7 +16,7 @@ interface IService {
   theme: string
   type: Types.ObjectId
   people: Types.ObjectId
-  events: IServiceEvent
+  events: IServiceEvent[]
   userId: Types.ObjectId
 }
 

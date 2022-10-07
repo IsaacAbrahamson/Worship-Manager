@@ -44,19 +44,53 @@ export default function PeopleEventsTable(props: Props) {
   function createRows(): JSX.Element[] {
     const rows: JSX.Element[] = people!.map((result) => {
       return (
-        <tr key={result.person._id}>
+        <tr key={result._id}>
           <td>{result.person.first_name} {result.person.last_name}</td>
           <td>{result.role.role}</td>
           <td><a href={`mailto:${result.person.email}`}>{result.person.email}</a></td>
           <td className="table-btns">
             <div className="table-btns-wrapper">
-              <Delete />
+              <Delete onClick={() => deletePerson(result._id!)} />
             </div>
           </td>
         </tr>
       )
     })
     return rows
+  }
+
+  async function addPerson() {
+    if (!selectedPerson || !selectedRole) return
+
+    const res = await fetch(`/api/services/${props.id}/new/person`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        personId: selectedPerson,
+        roleId: selectedRole
+      })
+    })
+
+    if (res.status === 200) {
+      getPeople()
+    } else {
+      alert('Could not add event')
+    }
+  }
+
+  async function deletePerson(personId: string) {
+    const res = await fetch(`/api/services/${props.id}/delete/person`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ personId })
+    })
+
+    if (res.status === 200) {
+      setPeople(prev => prev?.filter(e => e._id !== personId))
+    } else {
+      const err = await res.text()
+      alert(err)
+    }
   }
 
   return (
@@ -81,7 +115,7 @@ export default function PeopleEventsTable(props: Props) {
           <option disabled={true} value="">Choose role</option>
           {availableRoles && availableRoles.map(e => <option value={e._id} key={e._id}>{e.role}</option>)}
         </select>
-        <button><PlusIcon /> Add Person</button>
+        <button onClick={addPerson}><PlusIcon /> Add Person</button>
       </div>
     </div>
   )

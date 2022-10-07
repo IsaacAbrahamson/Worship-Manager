@@ -71,8 +71,8 @@ router.post('/:id/new/event', async (req: Request, res: Response) => {
   }
 
   try {
-    const service = await Service.findByIdAndUpdate(id, { $push: { events: event } })
-    res.send(service)
+    await Service.findByIdAndUpdate(id, { $push: { events: event } })
+    res.send('Success')
   } catch (err) {
     res.status(400).send('Could not add event')
   }
@@ -108,8 +108,34 @@ router.get('/:id/people', async (req: Request, res: Response) => {
 
 router.post('/:id/new/person', async (req: Request, res: Response) => {
   const id = req.params.id
-  const { personId, roleId, userId } = req.query
+  const { personId, roleId } = req.body
 
+  // Ensure required parameters
+  if (!personId || !roleId) return res.status(400).send('Missing required parameter')
+
+  const person = {
+    person: personId,
+    role: roleId
+  }
+
+  try {
+    await Service.findByIdAndUpdate(id, { $push: { people: person } })
+    res.send('Success')
+  } catch (err) {
+    res.status(400).send('Could not add person')
+  }
+})
+
+router.post('/:id/delete/person', async (req: Request, res: Response) => {
+  const id = req.params.id
+  const { personId } = req.body
+
+  try {
+    await Service.findByIdAndUpdate(id, { $pull: { people: { _id: personId } } })
+    res.send('success')
+  } catch (err) {
+    res.status(400).send('Could not delete event')
+  }
 })
 
 export default router
