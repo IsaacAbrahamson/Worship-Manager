@@ -32,15 +32,17 @@ export interface EventInterface {
   song?: SongInterface
 }
 
+export interface ServicePersonInterface {
+  role: { role: string },
+  person: PersonInterface
+}
+
 export interface ServiceInterface {
   _id: string
   date: string
   theme: string
   type: ServiceTypeInterface
-  people: {
-    role: { role: string },
-    person: PersonInterface
-  }[]
+  people: ServicePersonInterface[]
   events: EventInterface[]
 }
 

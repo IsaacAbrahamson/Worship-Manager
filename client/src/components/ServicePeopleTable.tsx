@@ -1,19 +1,17 @@
-import { RoleTypesInterface, PersonInterface } from "../types"
+import { RoleTypesInterface, PersonInterface, ServicePersonInterface } from "../types"
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import { ReactComponent as Delete } from '../assets/delete.svg'
 import UserContext from '../UserContext'
 import { useContext, useEffect, useState } from "react"
 
 interface Props {
-  people: {
-    role: { role: string },
-    person: PersonInterface
-  }[],
   small: boolean
+  id: string
 }
 
 export default function PeopleEventsTable(props: Props) {
   const { user } = useContext(UserContext)
+  const [people, setPeople] = useState<ServicePersonInterface[]>()
   const [selectedPerson, setSelectedPerson] = useState('')
   const [selectedRole, setSelectedRole] = useState('')
   const [availablePeople, setAvailablePeople] = useState<PersonInterface[]>()
@@ -21,23 +19,30 @@ export default function PeopleEventsTable(props: Props) {
 
   useEffect(() => {
     getPeople()
-    getRoles()
+    getAvailablePeople()
+    getAvailableRoles()
   }, [])
 
   async function getPeople() {
+    const res = await fetch(`/api/services/${props.id}/people`)
+    const people = await res.json()
+    setPeople(people)
+  }
+
+  async function getAvailablePeople() {
     const res = await fetch(`/api/people?userId=${user?._id}`)
     const people = await res.json()
     setAvailablePeople(people)
   }
 
-  async function getRoles() {
+  async function getAvailableRoles() {
     const res = await fetch(`/api/options/roles?userId=${user?._id}`)
     const roles = await res.json()
     setAvailableRoles(roles)
   }
 
   function createRows(): JSX.Element[] {
-    const rows: JSX.Element[] = props.people.map((result) => {
+    const rows: JSX.Element[] = people!.map((result) => {
       return (
         <tr key={result.person._id}>
           <td>{result.person.first_name} {result.person.last_name}</td>
@@ -64,7 +69,7 @@ export default function PeopleEventsTable(props: Props) {
             <th>Email</th>
             <th></th>
           </tr>
-          {createRows()}
+          {people && createRows()}
         </tbody>
       </table>
       <div className="table-inputs">
