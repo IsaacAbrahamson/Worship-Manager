@@ -24,8 +24,9 @@ export default function Modal(props: Props) {
   }, [])
 
   return (
-    <div className="modal" onClick={props.onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
+    <div className="modal">
+      <div className="modal-close" onClick={props.onClose}></div>
+      <div className="modal-content">
         <div className="modal-header">
           <p className="modal-title">{props.title}</p>
         </div>
