@@ -9,7 +9,8 @@ import Modal from '../components/Modal'
 
 export default function Services() {
   const { user } = useContext(UserContext)
-  const [services, setServices] = useState<ServiceInterface[]>()
+  const [upcomingServices, setUpcomingServices] = useState<ServiceInterface[]>()
+  const [pastServices, setPastServices] = useState<ServiceInterface[]>()
   const [showModal, setShowModal] = useState<boolean>(false)
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
@@ -17,15 +18,22 @@ export default function Services() {
   const [type, setType] = useState('')
   const [availableEvents, setAvailableEvents] = useState<EventTypesInterface[]>()
 
-  const getServices = useCallback(async () => {
-    const res = await fetch(`/api/services?userId=${user?._id}`)
+  const getUpcoming = useCallback(async () => {
+    const res = await fetch(`/api/services/upcoming?userId=${user?._id}`)
     const data = await res.json()
-    setServices(data)
+    setUpcomingServices(data)
+  }, [user])
+
+  const getPast = useCallback(async () => {
+    const res = await fetch(`/api/services/past?userId=${user?._id}`)
+    const data = await res.json()
+    setPastServices(data)
   }, [user])
 
   useEffect(() => {
-    getServices()
-  }, [getServices])
+    getUpcoming()
+    getPast()
+  }, [getUpcoming, getPast])
 
   useEffect(() => {
     async function getAvailableEvents() {
@@ -52,7 +60,7 @@ export default function Services() {
 
     if (res.status === 200) {
       const newService = await res.json()
-      setServices(prev => [...prev!, newService])
+      setUpcomingServices(prev => [...prev!, newService])
       setShowModal(false)
     } else {
       const err = await res.text()
@@ -95,13 +103,13 @@ export default function Services() {
           </div>
         </div>
         <p className='table-subtitle'>Click on a service for details</p>
-        {services ? <ServiceTable services={services} /> : ''}
+        {upcomingServices ? <ServiceTable services={upcomingServices} /> : ''}
 
         <div className="table-title-bar">
           <h2 className='table-title'>Past Services</h2>
         </div>
         <p className='table-subtitle'>Click on a service for details</p>
-        {services ? <ServiceTable services={services} /> : ''}
+        {pastServices ? <ServiceTable services={pastServices} /> : ''}
 
       </div>
     </div>

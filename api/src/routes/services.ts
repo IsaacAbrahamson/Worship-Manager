@@ -7,23 +7,44 @@ import Song from '../models/Song'
 import ServiceEventType from '../models/ServiceEventType'
 const router = express.Router()
 
-router.get('/', async (req: Request, res: Response) => {
+router.get('/upcoming', async (req: Request, res: Response) => {
   const { userId } = req.query
-  const services = await Service.find({ userId })
+  const services = await Service.find({ userId, date: { $gte: new Date() } })
+    .populate({ path: 'type', model: ServiceType })
+  res.send(services)
+})
+
+router.get('/past', async (req: Request, res: Response) => {
+  const { userId } = req.query
+  const services = await Service.find({ userId, date: { $lte: new Date() } })
     .populate({ path: 'type', model: ServiceType })
   res.send(services)
 })
 
 router.post('/new', async (req: Request, res: Response) => {
-  res.send('theme: ' + req.body.theme)
-})
+  const { datetime, theme, type, userId } = req.body
+  if (!datetime || !theme || !type || !userId) return res.status(400).send('missing required parameter')
+  const date: Date = new Date(datetime as string)
 
-router.post('/update', async (req: Request, res: Response) => {
-  res.send('id: ' + req.body.id)
-})
+  try {
+    const service = new Service({
+      date,
+      theme,
+      type,
+      people: [],
+      events: [],
+      userId
+    })
+    await service.save()
 
-router.post('/delete', async (req: Request, res: Response) => {
-  res.send('id: ' + req.body.id)
+    // find it to get full populate info
+    const newService = await Service.findById(service._id)
+      .populate({ path: 'type', model: ServiceType })
+
+    res.send(newService)
+  } catch (err) {
+    res.status(400).send('Could not create service')
+  }
 })
 
 
@@ -38,6 +59,33 @@ router.get('/:id', async (req: Request, res: Response) => {
   } catch (err) {
     console.log(err)
     res.send({ status: 'invalid query', err })
+  }
+})
+
+router.post('/:id/update', async (req: Request, res: Response) => {
+  const id = req.params.id
+  const { date, type, theme } = req.body
+
+  if (!date || !type || !theme) return res.status(400).send('Missing required parameter')
+
+  try {
+    await Service.findByIdAndUpdate(id, { date, type, theme })
+    res.send('success')
+  } catch (err) {
+    console.log(err)
+    res.send('An error occurred')
+  }
+})
+
+router.post('/:id/delete', async (req: Request, res: Response) => {
+  const id = req.params.id
+
+  try {
+    await Service.findByIdAndDelete(id)
+    res.send('success')
+  } catch (err) {
+    console.log(err)
+    res.send('An error occurred')
   }
 })
 

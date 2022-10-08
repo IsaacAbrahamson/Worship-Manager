@@ -141,11 +141,16 @@ async function createData(userId: Types.ObjectId) {
   await eventType2.save()
   await eventType3.save()
 
-  // Create services
+  // Create 3 past and 3 future services from now
+  let futureDate: Date = new Date()
+  futureDate.setDate(futureDate.getDate() + 7)
+  let pastDate: Date = new Date()
+  pastDate.setDate(pastDate.getDate() - 7)
+
   console.log('creating services...')
   const service1 = new Service({
-    date: Date.now(),
-    theme: 'Service 1',
+    date: futureDate,
+    theme: 'Future Service 1',
     type: type1._id,
     people: [
       {
@@ -183,8 +188,8 @@ async function createData(userId: Types.ObjectId) {
     userId
   })
   const service2 = new Service({
-    date: Date.now(),
-    theme: 'Service 2',
+    date: futureDate,
+    theme: 'Future Service 2',
     type: type2._id,
     people: [
       {
@@ -222,8 +227,126 @@ async function createData(userId: Types.ObjectId) {
     userId
   })
   const service3 = new Service({
-    date: Date.now(),
-    theme: 'Service 3',
+    date: futureDate,
+    theme: 'Future Service 3',
+    type: type3._id,
+    people: [
+      {
+        person: person6._id,
+        role: role1._id
+      }, {
+        person: person2._id,
+        role: role2._id
+      }, {
+        person: person3._id,
+        role: role4._id
+      }, {
+        person: person4._id,
+        role: role3._id
+      }, {
+        person: person5._id,
+        role: role4._id
+      },
+    ],
+    events: [
+      {
+        type: eventType2._id,
+        order: 2,
+        song: song1._id
+      },
+      {
+        type: eventType3._id,
+        order: 3
+      },
+      {
+        type: eventType1._id,
+        order: 1,
+        song: song1._id
+      },
+    ],
+    userId
+  })
+  const service4 = new Service({
+    date: pastDate,
+    theme: 'Past Service 1',
+    type: type1._id,
+    people: [
+      {
+        person: person6._id,
+        role: role1._id
+      }, {
+        person: person2._id,
+        role: role2._id
+      }, {
+        person: person3._id,
+        role: role3._id
+      }, {
+        person: person4._id,
+        role: role4._id
+      }, {
+        person: person5._id,
+        role: role4._id
+      },
+    ],
+    events: [
+      {
+        type: eventType1._id,
+        order: 1
+      },
+      {
+        type: eventType2._id,
+        order: 2,
+        song: song1._id
+      },
+      {
+        type: eventType3._id,
+        order: 3
+      },
+    ],
+    userId
+  })
+  const service5 = new Service({
+    date: pastDate,
+    theme: 'Past Service 2',
+    type: type2._id,
+    people: [
+      {
+        person: person6._id,
+        role: role2._id
+      }, {
+        person: person2._id,
+        role: role3._id
+      }, {
+        person: person3._id,
+        role: role1._id
+      }, {
+        person: person4._id,
+        role: role4._id
+      }, {
+        person: person5._id,
+        role: role4._id
+      },
+    ],
+    events: [
+      {
+        type: eventType1._id,
+        order: 1
+      },
+      {
+        type: eventType2._id,
+        order: 2,
+        song: song3._id
+      },
+      {
+        type: eventType3._id,
+        order: 3
+      },
+    ],
+    userId
+  })
+  const service6 = new Service({
+    date: pastDate,
+    theme: 'Past Service 3',
     type: type3._id,
     people: [
       {
@@ -264,6 +387,9 @@ async function createData(userId: Types.ObjectId) {
   await service1.save()
   await service2.save()
   await service3.save()
+  await service4.save()
+  await service5.save()
+  await service6.save()
 
   // Finished
   console.log('Finished creating data.')
