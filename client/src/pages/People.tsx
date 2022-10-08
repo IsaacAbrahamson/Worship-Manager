@@ -2,7 +2,6 @@ import Sidebar from '../components/Sidebar'
 import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { PersonInterface } from '../types'
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
-import { ReactComponent as CloudIcon } from '../assets/cloud.svg'
 import UserContext from '../UserContext'
 import PersonTable from '../components/PersonTable'
 import Modal from '../components/Modal'
@@ -14,14 +13,13 @@ export default function Options() {
   const [showModal, setShowModal] = useState<boolean>(false)
 
   useEffect(() => {
+    async function getPeople() {
+      const res = await fetch(`/api/people?userId=${user?._id}`)
+      const data = await res.json()
+      setPeople(data)
+    }
     getPeople()
-  }, [])
-
-  async function getPeople() {
-    const res = await fetch(`/api/people?userId=${user?._id}`)
-    const data = await res.json()
-    setPeople(data)
-  }
+  }, [user])
 
   async function saveModal() {
     const res = await fetch('/api/people/new', {

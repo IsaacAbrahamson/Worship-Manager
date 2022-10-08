@@ -66,7 +66,8 @@ export default function Songs() {
   }
 
   return (
-    <>
+    <div className='page'>
+      <Sidebar activePage='songs' />
       {newSong && (
         <Modal
           title='Create Song'
@@ -83,23 +84,20 @@ export default function Songs() {
         </Modal>
       )}
 
-      <div className='page'>
-        <Sidebar activePage='songs' />
-        <div className="page-content">
+      <div className="page-content">
 
-          <div className="table-title-bar">
-            <h2 className='table-title'>Songs</h2>
-            <div className="table-title-btns">
-              <button className='btn' onClick={createModal}>
-                <PlusIcon />
-                New Song
-              </button>
-            </div>
+        <div className="table-title-bar">
+          <h2 className='table-title'>Songs</h2>
+          <div className="table-title-btns">
+            <button className='btn' onClick={createModal}>
+              <PlusIcon />
+              New Song
+            </button>
           </div>
-          {songs ? <SongsTable songs={songs} setSongs={setSongs} /> : ''}
-
         </div>
+        {songs ? <SongsTable songs={songs} setSongs={setSongs} /> : ''}
+
       </div>
-    </>
+    </div>
   )
 }

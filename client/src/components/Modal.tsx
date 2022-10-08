@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react"
+import { ReactNode, useEffect } from 'react'
 import '../styles/modal.scss'
 
 interface Props {
@@ -10,18 +10,20 @@ interface Props {
 }
 
 export default function Modal(props: Props) {
-  if (!props.show) return null
-
-  function closeOnEsc(e: globalThis.KeyboardEvent) {
-    if (e.key === 'Escape') props.onClose()
-  }
-
+  // Esc functionality
+  const { onClose } = props
   useEffect(() => {
+    function closeOnEsc(e: globalThis.KeyboardEvent) {
+      if (e.key === 'Escape') onClose()
+    }
+
     document.body.addEventListener('keydown', closeOnEsc)
     return () => {
       document.body.removeEventListener('keydown', closeOnEsc)
     }
-  }, [])
+  }, [onClose])
+
+  if (!props.show) return null
 
   return (
     <div className="modal">

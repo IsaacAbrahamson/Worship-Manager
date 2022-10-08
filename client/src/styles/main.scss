@@ -192,7 +192,7 @@ table {
 		&:hover {
 			background: black;
 		}
-		&.btn-outline {
+		&.btn-delete {
 			background: none;
 			color: black;
 			border: 2px solid #ececec;
@@ -204,8 +204,9 @@ table {
 				}
 			}
 		}
-		&.btn-outline:hover {
-			background: #ececec;
+		&.btn-delete:hover {
+			background: #ff4646;
+			border: 2px solid #ff4646;
 		}
 	}
 }

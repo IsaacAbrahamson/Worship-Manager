@@ -1,8 +1,8 @@
-import { EventInterface, EventTypesInterface, ServiceInterface, SongInterface } from "../types"
+import { EventInterface, EventTypesInterface, SongInterface } from '../types'
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import { ReactComponent as Delete } from '../assets/delete.svg'
 import UserContext from '../UserContext'
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from 'react'
 
 interface Props {
   small?: boolean
