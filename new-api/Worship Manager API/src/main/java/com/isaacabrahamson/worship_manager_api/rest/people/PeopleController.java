@@ -1,27 +1,33 @@
 package com.isaacabrahamson.worship_manager_api.rest.people;
 
+import com.isaacabrahamson.worship_manager_api.domain.person.PersonDto;
+import com.isaacabrahamson.worship_manager_api.domain.person.PersonService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/people")
 public class PeopleController {
-    @GetMapping("/")
-    public void findAllPeople() {
-        // TODO: Implement logic
+    private final PersonService personService;
+
+    @GetMapping("/{userId}")
+    public PersonDto findPerson(@PathVariable Long userId) {
+        return personService.findPersonByUserId(userId);
     }
 
-    @PostMapping("/new")
-    public void createPerson() {
-        // TODO: Implement logic
+    @PostMapping("/")
+    public PersonDto createPerson(@RequestBody PersonDto personDto) {
+        return personService.updatePerson(personDto);
     }
 
     @PutMapping("/")
-    public void updatePerson() {
-        // TODO: Implement logic
+    public PersonDto updatePerson(@RequestBody PersonDto personDto) {
+        return personService.updatePerson(personDto);
     }
 
-    @DeleteMapping("/")
-    public void deletePerson() {
-        // TODO: Implement logic
+    @DeleteMapping("/{personId}")
+    public void deletePerson(@PathVariable Long personId) {
+        personService.deletePerson(personId);
     }
 }
