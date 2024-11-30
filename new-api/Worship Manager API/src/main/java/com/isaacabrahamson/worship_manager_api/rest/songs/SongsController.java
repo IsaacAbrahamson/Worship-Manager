@@ -1,27 +1,35 @@
 package com.isaacabrahamson.worship_manager_api.rest.songs;
 
+import com.isaacabrahamson.worship_manager_api.domain.song.SongDto;
+import com.isaacabrahamson.worship_manager_api.domain.song.SongService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/songs")
 public class SongsController {
+    private final SongService songService;
+
     @GetMapping("/")
-    public void findAllSongs() {
-        // TODO: Implement logic
+    public List<SongDto> findAllSongs() {
+        return songService.findAllSongs();
     }
 
     @PostMapping("/")
-    public void createSong() {
-        // TODO: Implement logic
+    public SongDto createSong(@RequestBody SongDto songDto) {
+        return songService.updateSong(songDto);
     }
 
-    @PatchMapping("/")
-    public void updateSong() {
-        // TODO: Implement logic
+    @PutMapping("/")
+    public SongDto updateSong(@RequestBody SongDto songDto) {
+        return songService.updateSong(songDto);
     }
 
-    @DeleteMapping("/")
-    public void deleteSong() {
-        // TODO: Implement logic
+    @DeleteMapping("/{songId}")
+    public void deleteSong(@PathVariable Long songId) {
+        songService.deleteSong(songId);
     }
 }
