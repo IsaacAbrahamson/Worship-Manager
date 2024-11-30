@@ -6,7 +6,8 @@ public class UserMapper {
                 user.getId(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getEmail()
+                user.getEmail(),
+                user.getPassword()
         );
     }
 
@@ -15,7 +16,8 @@ public class UserMapper {
                 dto.getId(),
                 dto.getFirstName(),
                 dto.getLastName(),
-                dto.getEmail()
+                dto.getEmail(),
+                dto.getPassword()
         );
     }
 }
