@@ -14,7 +14,7 @@ public class SongService {
         return repository.findAll().stream().map(SongMapper::toSongDto).toList();
     }
 
-    public SongDto updateSong(SongDto songDto) {
+    public SongDto createSong(SongDto songDto) {
         Song newSong = SongMapper.fromSongDto(songDto);
         Song savedSong = repository.save(newSong);
         return SongMapper.toSongDto(savedSong);

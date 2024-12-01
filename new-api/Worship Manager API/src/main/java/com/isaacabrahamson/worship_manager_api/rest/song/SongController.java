@@ -20,12 +20,7 @@ public class SongController {
 
     @PostMapping("/")
     public SongDto createSong(@RequestBody SongDto songDto) {
-        return songService.updateSong(songDto);
-    }
-
-    @PutMapping("/")
-    public SongDto updateSong(@RequestBody SongDto songDto) {
-        return songService.updateSong(songDto);
+        return songService.createSong(songDto);
     }
 
     @DeleteMapping("/{songId}")
