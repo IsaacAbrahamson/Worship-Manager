@@ -1,10 +1,10 @@
-package com.isaacabrahamson.worship_manager_api.rest.services;
+package com.isaacabrahamson.worship_manager_api.rest.service;
 
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/services")
-public class ServicesController {
+@RequestMapping("/service")
+public class ServiceController {
     @GetMapping("/upcoming")
     public void findUpcoming() {
         // TODO: Implement logic

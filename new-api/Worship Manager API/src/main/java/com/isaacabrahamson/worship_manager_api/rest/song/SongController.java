@@ -1,4 +1,4 @@
-package com.isaacabrahamson.worship_manager_api.rest.songs;
+package com.isaacabrahamson.worship_manager_api.rest.song;
 
 import com.isaacabrahamson.worship_manager_api.domain.song.SongDto;
 import com.isaacabrahamson.worship_manager_api.domain.song.SongService;
@@ -9,8 +9,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/songs")
-public class SongsController {
+@RequestMapping("/song")
+public class SongController {
     private final SongService songService;
 
     @GetMapping("/")

@@ -1,4 +1,4 @@
-package com.isaacabrahamson.worship_manager_api.rest.auth;
+package com.isaacabrahamson.worship_manager_api.rest.user;
 
 import com.isaacabrahamson.worship_manager_api.domain.user.UserDto;
 import com.isaacabrahamson.worship_manager_api.domain.user.UserService;
@@ -7,23 +7,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
-public class AuthController {
+@RequestMapping("/user")
+public class UserController {
     private final UserService userService;
 
-    @PostMapping("/login")
-    public void login() {
-        // TODO: Implement logic
-    }
-
-    @GetMapping("/logout")
-    public void logout() {
-        // TODO: Implement logic
-    }
-
-    @GetMapping("/user")
-    public void findCurrentUser() {
-        // TODO: Implement logic
+    @GetMapping("/{@userId}")
+    public UserDto findCurrentUser(@PathVariable Long userId) {
+        return userService.findUserById(userId);
     }
 
     @PostMapping("/register")

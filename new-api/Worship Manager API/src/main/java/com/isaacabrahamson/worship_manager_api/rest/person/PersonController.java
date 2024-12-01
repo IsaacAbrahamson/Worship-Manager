@@ -1,4 +1,4 @@
-package com.isaacabrahamson.worship_manager_api.rest.people;
+package com.isaacabrahamson.worship_manager_api.rest.person;
 
 import com.isaacabrahamson.worship_manager_api.domain.person.PersonDto;
 import com.isaacabrahamson.worship_manager_api.domain.person.PersonService;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/people")
-public class PeopleController {
+@RequestMapping("/person")
+public class PersonController {
     private final PersonService personService;
 
     @GetMapping("/{userId}")
