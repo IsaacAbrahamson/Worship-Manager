@@ -1,22 +1,30 @@
 package com.isaacabrahamson.worship_manager_api.rest.role;
 
+import com.isaacabrahamson.worship_manager_api.domain.role.RoleDto;
+import com.isaacabrahamson.worship_manager_api.domain.role.RoleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/role")
 public class RoleController {
+    private final RoleService roleService;
+
     @GetMapping("/")
-    public void findAllRoles() {
-        // TODO: Implement logic
+    public List<RoleDto> findAllRoles() {
+        return roleService.findAllRoles();
     }
 
     @PostMapping("/")
-    public void createRole() {
-        // TODO: Implement logic
+    public RoleDto createRole(@RequestBody RoleDto roleDto) {
+        return roleService.createRole(roleDto);
     }
 
-    @DeleteMapping("/")
-    public void deleteRole() {
-        // TODO: Implement logic
+    @DeleteMapping("/{roleId}")
+    public void deleteRole(@PathVariable Long roleId) {
+        roleService.deleteRole(roleId);
     }
 }
