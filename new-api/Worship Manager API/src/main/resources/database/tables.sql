@@ -1,3 +1,4 @@
+drop table app_user;
 create table app_user (
     id serial primary key,
     email varchar(255) not null unique,
@@ -6,6 +7,7 @@ create table app_user (
     password varchar(255) not null
 );
 
+drop table person;
 create table person (
     id serial primary key,
     first_name varchar(255) not null,
@@ -14,7 +16,8 @@ create table person (
     user_id integer references app_user(id)
 );
 
-create table service_type (
+drop table type;
+create table type (
     id serial primary key,
     type varchar(255) not null,
     color varchar(255) not null,
@@ -22,18 +25,14 @@ create table service_type (
     user_id integer references app_user(id)
 );
 
-create table service_role (
+drop table role;
+create table role (
     id serial primary key,
-    role varchar(255) not null,
+    role_name varchar(255) not null,
     user_id integer references app_user(id)
 );
 
-create table service_event_type (
-    id serial primary key,
-    type varchar(255) not null,
-    user_id integer references app_user(id)
-);
-
+drop table song;
 create table song (
     id serial primary key,
     name varchar(255) not null,
@@ -42,6 +41,7 @@ create table song (
     user_id integer references app_user(id)
 );
 
+drop table service;
 create table service (
     id serial primary key,
     date timestamp default current_timestamp,
@@ -50,17 +50,19 @@ create table service (
     user_id integer references app_user(id)
 );
 
-create table service_people (
-    id serial primary key,
-    service_id integer references service(id),
-    person_id integer references person(id),
-    role_id integer references service_role(id)
-);
-
-create table service_event (
+drop table event;
+create table event (
     id serial primary key,
     service_id integer references service(id),
     type_id integer references service_event_type(id),
     event_order integer not null,
     song_id integer references song(id)
 );
+
+drop table event_type;
+create table event_type (
+    id serial primary key,
+    type varchar(255) not null,
+    user_id integer references app_user(id)
+);
+\

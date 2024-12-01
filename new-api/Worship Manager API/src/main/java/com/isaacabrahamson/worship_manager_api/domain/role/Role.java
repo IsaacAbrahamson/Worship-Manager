@@ -1,4 +1,4 @@
-package com.isaacabrahamson.worship_manager_api.domain.service.event;
+package com.isaacabrahamson.worship_manager_api.domain.role;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,14 +11,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "service_event_type")
-public class ServiceEventType {
+@Table(name = "role")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "type", nullable = false)
-    private String type;
+    @Column(name = "role_name", nullable = false)
+    private String roleName;
 
     @Column(name = "user_id", nullable = false)
     private Long userId;

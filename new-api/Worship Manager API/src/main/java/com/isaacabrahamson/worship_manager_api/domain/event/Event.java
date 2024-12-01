@@ -1,4 +1,4 @@
-package com.isaacabrahamson.worship_manager_api.domain.service.people;
+package com.isaacabrahamson.worship_manager_api.domain.event;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "service_people")
-public class ServicePeople {
+@Table(name = "event")
+public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,9 +20,12 @@ public class ServicePeople {
     @Column(name = "service_id", nullable = false)
     private Long serviceId;
 
-    @Column(name = "person_id", nullable = false)
-    private Long personId;
+    @Column(name = "type_id", nullable = false)
+    private Long typeId;
 
-    @Column(name = "role_id", nullable = false)
-    private Long roleId;
+    @Column(name = "event_order", nullable = false)
+    private Long eventOrder;
+
+    @Column(name = "song_id", nullable = false)
+    private Long songId;
 }

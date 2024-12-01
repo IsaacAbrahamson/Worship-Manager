@@ -1,4 +1,4 @@
-package com.isaacabrahamson.worship_manager_api.domain.service.role;
+package com.isaacabrahamson.worship_manager_api.domain.type;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,14 +11,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "service_role")
-public class ServiceRole {
+@Table(name = "type")
+public class Type {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "role", nullable = false)
-    private String role;
+    @Column(name = "type", nullable = false)
+    private String type;
+
+    @Column(name = "color", nullable = false)
+    private String color;
+
+    @Column(name = "background", nullable = false)
+    private String background;
 
     @Column(name = "user_id", nullable = false)
     private Long userId;

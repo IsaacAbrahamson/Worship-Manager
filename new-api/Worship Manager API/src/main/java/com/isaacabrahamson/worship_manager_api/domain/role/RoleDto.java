@@ -1,4 +1,4 @@
-package com.isaacabrahamson.worship_manager_api.domain.service.role;
+package com.isaacabrahamson.worship_manager_api.domain.role;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ServiceRoleDto {
+public class RoleDto {
     private Long id;
     private String role;
     private Long userId;

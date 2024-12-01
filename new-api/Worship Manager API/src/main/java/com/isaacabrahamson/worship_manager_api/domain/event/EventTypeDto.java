@@ -1,4 +1,4 @@
-package com.isaacabrahamson.worship_manager_api.domain.service.event;
+package com.isaacabrahamson.worship_manager_api.domain.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServiceEventTypeDto {
+public class EventTypeDto {
     private Long id;
     private String type;
     private Long userId;

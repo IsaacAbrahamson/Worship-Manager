@@ -1,4 +1,4 @@
-package com.isaacabrahamson.worship_manager_api.domain.service.people;
+package com.isaacabrahamson.worship_manager_api.domain.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,11 +7,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class ServicePeopleDto {
+@NoArgsConstructor
+public class EventDto {
     private Long id;
     private Long serviceId;
-    private Long personId;
-    private Long roleId;
+    private Long typeId;
+    private Long eventOrder;
+    private Long songId;
 }

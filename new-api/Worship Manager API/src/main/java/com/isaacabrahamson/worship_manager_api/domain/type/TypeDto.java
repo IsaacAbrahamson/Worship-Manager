@@ -1,4 +1,4 @@
-package com.isaacabrahamson.worship_manager_api.domain.service.type;
+package com.isaacabrahamson.worship_manager_api.domain.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServiceTypeDto {
+public class TypeDto {
     private Long id;
     private String type;
     private String color;
