@@ -1,67 +1,30 @@
 package com.isaacabrahamson.worship_manager_api.rest.service;
 
+import com.isaacabrahamson.worship_manager_api.domain.service.ServiceDto;
+import com.isaacabrahamson.worship_manager_api.domain.service.ServiceService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/service")
 public class ServiceController {
-    @GetMapping("/upcoming")
-    public void findUpcoming() {
-        // TODO: Implement logic
-    }
+    private final ServiceService serviceService;
 
-    @GetMapping("/past")
-    public void findPast() {
-        // TODO: Implement logic
+    @GetMapping("/")
+    public List<ServiceDto> findAllServices() {
+        return serviceService.findAllServices();
     }
 
     @PostMapping("/")
-    public void createService() {
-        // TODO: Implement logic
+    public ServiceDto createService(@RequestBody ServiceDto serviceDto) {
+        return serviceService.createService(serviceDto);
     }
 
-    @GetMapping("/{id}")
-    public void findService(@PathVariable("id") Long serviceId) {
-        // TODO: Implement logic
-    }
-
-    @PutMapping("/{id}")
-    public void updateService(@PathVariable("id") Long serviceId) {
-        // TODO: Implement logic
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteService(@PathVariable("id") Long serviceId) {
-        // TODO: Implement logic
-    }
-
-    @GetMapping("/{id}/events")
-    public void findServiceEvents(@PathVariable("id") Long serviceId) {
-        // TODO: Implement logic
-    }
-
-    @PostMapping("/{id}/events")
-    public void createServiceEvent(@PathVariable("id") Long serviceId) {
-        // TODO: Implement logic
-    }
-
-    @DeleteMapping("/{id}/events")
-    public void deleteServiceEvent(@PathVariable("id") Long serviceId) {
-        // TODO: Implement logic
-    }
-
-    @GetMapping("/{id}/people")
-    public void findServicePeople(@PathVariable("id") Long serviceId) {
-        // TODO: Implement logic
-    }
-
-    @PostMapping("/{id}/people")
-    public void createServicePerson(@PathVariable("id") Long serviceId) {
-        // TODO: Implement logic
-    }
-
-    @DeleteMapping("/{id}/people")
-    public void deleteServicePerson(@PathVariable("id") Long serviceId) {
-        // TODO: Implement logic
+    @DeleteMapping("/{serviceId}")
+    public void deleteService(@PathVariable Long serviceId) {
+        serviceService.deleteService(serviceId);
     }
 }
